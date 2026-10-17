@@ -103,7 +103,7 @@ export default function AdminPage() {
                   onClick={() => setType('OUT')}
                   className={`py-3 rounded-xl font-bold text-sm transition-all ${
                     type === 'OUT'
-                      ? 'bg-rose-600 text-white shadow-sm'
+                      ? 'bg-pink-600 text-white shadow-sm'
                       : 'text-gray-600 hover:text-black'
                   }`}
                 >
