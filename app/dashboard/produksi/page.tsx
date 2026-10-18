@@ -38,7 +38,7 @@ export default function ProduksiPage() {
   const [spkList, setSpkList] = useState<SPKItem[]>([
     {
       id: '1',
-      productName: 'New Lavie Pants',
+      productName: 'Lavie Pants Black',
       qty: 500,
       vendor: 'CV Taylor Pekalongan',
       targetDate: '2026-10-25',
@@ -46,7 +46,7 @@ export default function ProduksiPage() {
     },
     {
       id: '2',
-      productName: 'Aira Ballon Pants',
+      productName: 'Lavie Pants Beige',
       qty: 300,
       vendor: 'Konveksi Berkah Pekalongan',
       targetDate: '2026-10-28',
@@ -58,7 +58,7 @@ export default function ProduksiPage() {
   const [contentList, setContentList] = useState<ContentItem[]>([
     {
       id: '1',
-      title: 'Fitcheck New Lavie Pants Hitam M',
+      title: 'Fitcheck Lavie Pants Black M',
       platform: 'TikTok',
       talent: 'Incess & Team',
       shootDate: '2026-10-17',
@@ -66,7 +66,7 @@ export default function ProduksiPage() {
     },
     {
       id: '2',
-      title: 'B-Roll Detail Bahan Aira Ballon Pants',
+      title: 'B-Roll Detail Bahan Lavie Pants',
       platform: 'Instagram Reels',
       talent: 'Duo Matcha',
       shootDate: '2026-10-18',
