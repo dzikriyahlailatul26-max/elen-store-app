@@ -34,7 +34,7 @@ export default function ProduksiPage() {
     }
   }, [router]);
 
-  // Data Initial CMT (Khusus Elen Store)
+  // Data State SPK CMT
   const [spkList, setSpkList] = useState<SPKItem[]>([
     {
       id: '1',
@@ -54,7 +54,7 @@ export default function ProduksiPage() {
     },
   ]);
 
-  // Data Initial Content (Khusus Elen Store)
+  // Data State Tim Kreatif
   const [contentList, setContentList] = useState<ContentItem[]>([
     {
       id: '1',
