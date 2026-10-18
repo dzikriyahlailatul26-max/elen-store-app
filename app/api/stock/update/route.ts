@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     let product = existingProducts && existingProducts.length > 0 ? existingProducts[0] : null;
 
-    // 2. Jika SKU belum ada di Supabase, buatkan otomatis!
+    // 2. Jika SKU belum ada di Supabase, buatkan otomatis (tanpa kolom name)!
     if (!product) {
       const initialStock = type === 'IN' ? qty : 0;
       const { data: newProduct, error: createError } = await supabase
@@ -38,7 +38,6 @@ export async function POST(request: Request) {
         .insert([
           {
             sku: cleanSku,
-            name: cleanSku,
             stock: initialStock,
           },
         ])
