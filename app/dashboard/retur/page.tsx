@@ -39,7 +39,6 @@ export default function ReturPage() {
     setMsgRetur(null);
 
     try {
-      // Simulasi/Penyimpanan data retur
       await new Promise((resolve) => setTimeout(resolve, 800));
       setMsgRetur({ text: 'Data retur berhasil dicatat!', isError: false });
       setOrderId('');
@@ -74,7 +73,7 @@ export default function ReturPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-12">
+    <div className="min-h-screen bg-gray-100 pb-12">
       {/* Header Navigasi */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -106,10 +105,10 @@ export default function ReturPage() {
       <main className="max-w-5xl mx-auto px-4 pt-6">
         {/* Banner Judul */}
         <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-200 mb-6">
-          <h2 className="text-2xl font-black text-gray-900 mb-1">
+          <h2 className="text-2xl font-black text-black mb-1">
             Modul Retur (RMA) & Handling Ulasan CS
           </h2>
-          <p className="text-sm font-semibold text-gray-500">
+          <p className="text-sm font-semibold text-gray-600">
             Pencatatan retur barang 2% harian & tiket penanganan ulasan buruk Elen Store.
           </p>
         </div>
@@ -125,7 +124,7 @@ export default function ReturPage() {
 
             <form onSubmit={handleSimpanRetur} className="space-y-5">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
+                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
                   No. Pesanan / Order ID
                 </label>
                 <input
@@ -133,13 +132,13 @@ export default function ReturPage() {
                   value={orderId}
                   onChange={(e) => setOrderId(e.target.value)}
                   placeholder="Contoh: TT-20260920-001"
-                  style={{ color: '#000000' }}
-                  className="w-full bg-white border-2 border-gray-300 rounded-2xl py-3.5 px-4 font-bold text-base text-black placeholder-gray-400 focus:outline-none focus:border-black"
+                  style={{ color: '#000000', backgroundColor: '#ffffff' }}
+                  className="w-full bg-white border-2 border-gray-400 rounded-2xl py-3.5 px-4 font-black text-base !text-black placeholder:text-gray-400 focus:outline-none focus:border-black"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
+                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
                   SKU Produk Retur
                 </label>
                 <input
@@ -147,20 +146,20 @@ export default function ReturPage() {
                   value={skuRetur}
                   onChange={(e) => setSkuRetur(e.target.value)}
                   placeholder="Contoh: LAVIE-NEW-HITAM-M"
-                  style={{ color: '#000000' }}
-                  className="w-full bg-white border-2 border-gray-300 rounded-2xl py-3.5 px-4 font-bold text-base text-black placeholder-gray-400 focus:outline-none focus:border-black"
+                  style={{ color: '#000000', backgroundColor: '#ffffff' }}
+                  className="w-full bg-white border-2 border-gray-400 rounded-2xl py-3.5 px-4 font-black text-base !text-black placeholder:text-gray-400 focus:outline-none focus:border-black"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
+                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
                   Alasan Retur
                 </label>
                 <select
                   value={alasanRetur}
                   onChange={(e) => setAlasanRetur(e.target.value)}
-                  style={{ color: '#000000' }}
-                  className="w-full bg-white border-2 border-gray-300 rounded-2xl py-3.5 px-4 font-bold text-sm text-black focus:outline-none focus:border-black"
+                  style={{ color: '#000000', backgroundColor: '#ffffff' }}
+                  className="w-full bg-white border-2 border-gray-400 rounded-2xl py-3.5 px-4 font-black text-sm !text-black focus:outline-none focus:border-black"
                 >
                   <option value="Cacat Produksi / Jahitan Rusak">Cacat Produksi / Jahitan Rusak</option>
                   <option value="Salah Warna / Ukuran Kirim">Salah Warna / Ukuran Kirim</option>
@@ -201,7 +200,7 @@ export default function ReturPage() {
             <form onSubmit={handleSimpanCS} className="space-y-5">
               {/* Pilihan Platform */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
+                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
                   Platform
                 </label>
                 <div className="grid grid-cols-2 gap-2 p-1 bg-gray-100 rounded-2xl">
@@ -211,7 +210,7 @@ export default function ReturPage() {
                     className={`py-2.5 rounded-xl font-bold text-xs transition-all ${
                       platform === 'TikTok Shop'
                         ? 'bg-black text-white shadow-sm'
-                        : 'text-gray-600 hover:text-black'
+                        : 'text-gray-700 hover:text-black'
                     }`}
                   >
                     TikTok Shop
@@ -222,7 +221,7 @@ export default function ReturPage() {
                     className={`py-2.5 rounded-xl font-bold text-xs transition-all ${
                       platform === 'Shopee'
                         ? 'bg-orange-500 text-white shadow-sm'
-                        : 'text-gray-600 hover:text-black'
+                        : 'text-gray-700 hover:text-black'
                     }`}
                   >
                     Shopee
@@ -232,7 +231,7 @@ export default function ReturPage() {
 
               {/* Rating Bintang */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
+                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
                   Bintang Ulasan
                 </label>
                 <div className="flex gap-2">
@@ -244,7 +243,7 @@ export default function ReturPage() {
                       className={`flex-1 py-2.5 rounded-xl font-bold text-xs border-2 transition-all flex items-center justify-center gap-1 ${
                         bintang === star
                           ? 'bg-amber-100 border-amber-500 text-amber-900'
-                          : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300'
+                          : 'bg-white border-gray-300 text-gray-700 hover:border-gray-400'
                       }`}
                     >
                       <span>⭐</span> {star} Bintang
@@ -255,16 +254,16 @@ export default function ReturPage() {
 
               {/* Isi Ulasan */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
+                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
                   Isi Ulasan Pembeli
                 </label>
                 <textarea
                   rows={3}
                   value={isiUlasan}
                   onChange={(e) => setIsiUlasan(e.target.value)}
-                  placeholder="Misal: Jelek banget kainnya tipis"
-                  style={{ color: '#000000' }}
-                  className="w-full bg-white border-2 border-gray-300 rounded-2xl py-3 px-4 font-bold text-sm text-black placeholder-gray-400 focus:outline-none focus:border-black resize-none"
+                  placeholder="Misal: Jahitan di bagian paha lepas saat pertama dipake..."
+                  style={{ color: '#000000', backgroundColor: '#ffffff' }}
+                  className="w-full bg-white border-2 border-gray-400 rounded-2xl py-3 px-4 font-black text-sm !text-black placeholder:text-gray-400 focus:outline-none focus:border-black resize-none"
                 />
               </div>
 
