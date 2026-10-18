@@ -34,7 +34,7 @@ export default function ProduksiPage() {
     }
   }, [router]);
 
-  // Data State SPK CMT
+  // Data Initial CMT (Khusus Elen Store)
   const [spkList, setSpkList] = useState<SPKItem[]>([
     {
       id: '1',
@@ -46,7 +46,7 @@ export default function ProduksiPage() {
     },
     {
       id: '2',
-      productName: 'Lavie Pants Beige',
+      productName: 'Lavie Pants Mocca',
       qty: 300,
       vendor: 'Konveksi Berkah Pekalongan',
       targetDate: '2026-10-28',
@@ -54,33 +54,34 @@ export default function ProduksiPage() {
     },
   ]);
 
-  // Data State Tim Kreatif
+  // Data Initial Content (Khusus Elen Store)
   const [contentList, setContentList] = useState<ContentItem[]>([
     {
       id: '1',
-      title: 'Fitcheck Lavie Pants Black M',
+      title: 'Fitcheck B-Roll Lavie Pants Hitam M',
       platform: 'TikTok',
       talent: 'Incess & Team',
-      shootDate: '2026-10-17',
-      status: 'READY UPLOAD',
+      shootDate: '2026-10-20',
+      status: 'PROSES TAKE',
     },
     {
       id: '2',
-      title: 'B-Roll Detail Bahan Lavie Pants',
+      title: 'Spill Outfit Kuliah Lavie Pants',
       platform: 'Instagram Reels',
       talent: 'Duo Matcha',
-      shootDate: '2026-10-18',
-      status: 'EDITING',
+      shootDate: '2026-10-22',
+      status: 'DRAFT HOOK',
     },
   ]);
 
-  // State Popup Modal Form
+  // Modal State CMT
   const [showSpkModal, setShowSpkModal] = useState(false);
   const [newProductName, setNewProductName] = useState('');
   const [newQty, setNewQty] = useState('');
   const [newVendor, setNewVendor] = useState('CV Taylor Pekalongan');
   const [newTargetDate, setNewTargetDate] = useState('');
 
+  // Modal State Kreatif
   const [showContentModal, setShowContentModal] = useState(false);
   const [newContentTitle, setNewContentTitle] = useState('');
   const [newPlatform, setNewPlatform] = useState<'TikTok' | 'Instagram Reels'>('TikTok');
@@ -125,7 +126,7 @@ export default function ProduksiPage() {
     );
   };
 
-  // Submit Jadwal Konten
+  // Submit Content
   const handleAddContent = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newContentTitle.trim()) return;
@@ -144,7 +145,7 @@ export default function ProduksiPage() {
     setShowContentModal(false);
   };
 
-  // Toggle Status Konten
+  // Toggle Status Content
   const toggleContentStatus = (id: string) => {
     setContentList((prev) =>
       prev.map((item) => {
