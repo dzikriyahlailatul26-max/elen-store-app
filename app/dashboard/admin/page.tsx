@@ -162,7 +162,11 @@ export default function AdminPage() {
                 type="text"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="Misal: Diambil tim packing TikTok"
+                placeholder={
+                  type === 'IN'
+                    ? 'Misal: Restok dari konveksi Pekalongan'
+                    : 'Misal: Diambil tim packing TikTok'
+                }
                 style={{ color: '#000000' }}
                 className="w-full bg-white border-2 border-gray-300 rounded-2xl py-3.5 px-4 font-bold text-sm text-black placeholder-gray-500 focus:outline-none focus:border-black"
               />
