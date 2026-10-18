@@ -3,60 +3,93 @@ import { supabase } from './supabase';
 
 export async function POST(request: Request) {
   try {
-    const { sku, changeQty, type, notes } = await request.json();
+    const body = await request.json();
+    const { sku, type, qty, notes } = body;
 
-    // 1. Ambil data produk berdasarkan SKU
-    const { data: variant, error: findError } = await supabase
-      .from('product_variants')
+    if (!sku || !type || !qty) {
+      return NextResponse.json(
+        { error: 'SKU, jenis transaksi, dan jumlah wajib diisi!' },
+        { status: 400 }
+      );
+    }
+
+    const cleanSku = sku.trim();
+
+    // 1. Cari produk berdasarkan SKU (abaikan huruf besar/kecil)
+    const { data: existingProducts, error: searchError } = await supabase
+      .from('products')
       .select('*')
-      .eq('sku', sku)
-      .single();
+      .ilike('sku', cleanSku);
 
-    if (findError || !variant) {
-      return NextResponse.json({ error: 'SKU produk tidak ditemukan!' }, { status: 404 });
+    if (searchError) {
+      return NextResponse.json(
+        { error: `Gagal mencari produk: ${searchError.message}` },
+        { status: 500 }
+      );
     }
 
-    // 2. Hitung & update stok baru
-    const newStock = variant.stock_qty + changeQty;
+    let product = existingProducts && existingProducts.length > 0 ? existingProducts[0] : null;
 
-    await supabase
-      .from('product_variants')
-      .update({ stock_qty: newStock })
-      .eq('id', variant.id);
+    // 2. Jika SKU belum ada di Supabase, buatkan otomatis!
+    if (!product) {
+      const initialStock = type === 'IN' ? qty : 0;
+      const { data: newProduct, error: createError } = await supabase
+        .from('products')
+        .insert([
+          {
+            sku: cleanSku,
+            name: cleanSku,
+            stock: initialStock,
+          },
+        ])
+        .select()
+        .single();
 
-    // 3. Catat Riwayat Pengambilan/Penambahan Stok
-    await supabase.from('stock_logs').insert({
-      variant_id: variant.id,
-      change_qty: changeQty,
-      type: type,
-      notes: notes
+      if (createError) {
+        return NextResponse.json(
+          { error: `Gagal membuat SKU baru: ${createError.message}` },
+          { status: 500 }
+        );
+      }
+
+      product = newProduct;
+    } else {
+      // 3. Jika SKU sudah ada, update jumlah stoknya
+      const currentStock = product.stock || 0;
+      const newStock = type === 'IN' ? currentStock + qty : Math.max(0, currentStock - qty);
+
+      const { error: updateError } = await supabase
+        .from('products')
+        .update({ stock: newStock })
+        .eq('id', product.id);
+
+      if (updateError) {
+        return NextResponse.json(
+          { error: `Gagal memperbarui stok: ${updateError.message}` },
+          { status: 500 }
+        );
+      }
+    }
+
+    // 4. Catat riwayat log transaksi stok
+    await supabase.from('stock_logs').insert([
+      {
+        product_id: product.id,
+        sku: cleanSku,
+        type,
+        qty,
+        notes: notes || '',
+      },
+    ]);
+
+    return NextResponse.json({
+      success: true,
+      message: `Stok SKU ${cleanSku} berhasil diperbarui!`,
     });
-
-    // 4. Kirim WA Auto-Broadcast via Fonnte Gateway (Jika token diisi)
-    if (process.env.FONNTE_TOKEN) {
-      const waMessage = `📢 *UPDATE STOK ELEN STORE*\n\n` +
-        `📦 SKU: ${variant.sku}\n` +
-        `👗 Produk: ${variant.product_name} (${variant.color} - ${variant.size})\n` +
-        `🔄 Perubahan: ${changeQty > 0 ? '+' : ''}${changeQty} pcs (${type})\n` +
-        `📊 Stok Sekarang: *${newStock} pcs*\n` +
-        `📝 Catatan: ${notes || '-'}\n\n` +
-        `_Sistem Otomatis Elen Store_`;
-
-      await fetch('https://api.fonnte.com/send', {
-        method: 'POST',
-        headers: {
-          'Authorization': process.env.FONNTE_TOKEN,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          target: process.env.WA_GROUP_ID || '',
-          message: waMessage
-        })
-      });
-    }
-
-    return NextResponse.json({ success: true, newStock, productName: variant.product_name });
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    return NextResponse.json(
+      { error: err.message || 'Terjadi kesalahan pada server' },
+      { status: 500 }
+    );
   }
 }
