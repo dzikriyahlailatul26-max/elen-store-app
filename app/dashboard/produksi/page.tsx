@@ -58,7 +58,7 @@ export default function ProduksiPage() {
   const [contentList, setContentList] = useState<ContentItem[]>([
     {
       id: '1',
-      title: 'Fitcheck B-Roll Lavie Pants Hitam M',
+      title: 'Fitcheck Lavie Pants Black M',
       platform: 'TikTok',
       talent: 'Incess & Team',
       shootDate: '2026-10-20',
