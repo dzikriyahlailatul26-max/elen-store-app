@@ -34,7 +34,6 @@ export default function ProduksiPage() {
     }
   }, [router]);
 
-  // Data State SPK CMT
   const [spkList, setSpkList] = useState<SPKItem[]>([
     {
       id: '1',
@@ -54,7 +53,6 @@ export default function ProduksiPage() {
     },
   ]);
 
-  // Data State Tim Kreatif
   const [contentList, setContentList] = useState<ContentItem[]>([
     {
       id: '1',
@@ -74,21 +72,18 @@ export default function ProduksiPage() {
     },
   ]);
 
-  // Modal State CMT
   const [showSpkModal, setShowSpkModal] = useState(false);
   const [newProductName, setNewProductName] = useState('');
   const [newQty, setNewQty] = useState('');
   const [newVendor, setNewVendor] = useState('CV Taylor Pekalongan');
   const [newTargetDate, setNewTargetDate] = useState('');
 
-  // Modal State Kreatif
   const [showContentModal, setShowContentModal] = useState(false);
   const [newContentTitle, setNewContentTitle] = useState('');
   const [newPlatform, setNewPlatform] = useState<'TikTok' | 'Instagram Reels'>('TikTok');
   const [newTalent, setNewTalent] = useState('Incess');
   const [newShootDate, setNewShootDate] = useState('');
 
-  // Submit SPK CMT
   const handleAddSpk = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newProductName.trim() || !newQty) return;
@@ -108,7 +103,6 @@ export default function ProduksiPage() {
     setShowSpkModal(false);
   };
 
-  // Toggle Status SPK
   const toggleSpkStatus = (id: string) => {
     setSpkList((prev) =>
       prev.map((item) => {
@@ -126,7 +120,6 @@ export default function ProduksiPage() {
     );
   };
 
-  // Submit Content
   const handleAddContent = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newContentTitle.trim()) return;
@@ -145,7 +138,6 @@ export default function ProduksiPage() {
     setShowContentModal(false);
   };
 
-  // Toggle Status Content
   const toggleContentStatus = (id: string) => {
     setContentList((prev) =>
       prev.map((item) => {
@@ -165,7 +157,6 @@ export default function ProduksiPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 pb-12">
-      {/* Header Navigasi */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -192,9 +183,7 @@ export default function ProduksiPage() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-5xl mx-auto px-4 pt-6">
-        {/* Banner Judul & Switcher Tab */}
         <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-black text-black mb-1">
@@ -231,7 +220,6 @@ export default function ProduksiPage() {
           </div>
         </div>
 
-        {/* TAB 1: CMT KONVEKSI */}
         {activeTab === 'CMT' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -267,7 +255,6 @@ export default function ProduksiPage() {
                     type="button"
                     onClick={() => toggleSpkStatus(item.id)}
                     className="bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-black px-4 py-2.5 rounded-xl transition-all border border-amber-300 flex items-center gap-1 cursor-pointer"
-                    title="Klik untuk ubah progres jahit"
                   >
                     <span>🕒</span> {item.status}
                   </button>
@@ -277,7 +264,6 @@ export default function ProduksiPage() {
           </div>
         )}
 
-        {/* TAB 2: TIM KREATIF */}
         {activeTab === 'KREATIF' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -318,7 +304,6 @@ export default function ProduksiPage() {
                   type="button"
                   onClick={() => toggleContentStatus(item.id)}
                   className="bg-purple-100 hover:bg-purple-200 text-purple-900 text-xs font-black px-4 py-2.5 rounded-xl transition-all border border-purple-300 flex items-center gap-1.5 cursor-pointer self-start md:self-auto"
-                  title="Klik untuk lanjut ke tahap berikutnya"
                 >
                   <span>🎬</span> {item.status}
                 </button>
@@ -327,7 +312,6 @@ export default function ProduksiPage() {
           </div>
         )}
 
-        {/* POPUP MODAL CMT */}
         {showSpkModal && (
           <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-gray-300">
@@ -405,7 +389,6 @@ export default function ProduksiPage() {
           </div>
         )}
 
-        {/* POPUP MODAL TIM KREATIF */}
         {showContentModal && (
           <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-gray-300">
