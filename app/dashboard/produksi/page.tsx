@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
-
 export default function ProduksiPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'CMT' | 'KREATIF'>('CMT');
