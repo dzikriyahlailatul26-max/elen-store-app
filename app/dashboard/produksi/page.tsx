@@ -5,24 +5,6 @@ import { useRouter } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
-interface SPKItem {
-  id: string;
-  productName: string;
-  qty: number;
-  vendor: string;
-  targetDate: string;
-  status: 'POTONG KAIN' | 'PROSES JAHIT' | 'FINISHING' | 'SELESAI QC';
-}
-
-interface ContentItem {
-  id: string;
-  title: string;
-  platform: 'TikTok' | 'Instagram Reels';
-  talent: string;
-  shootDate: string;
-  status: 'DRAFT HOOK' | 'PROSES TAKE' | 'EDITING' | 'READY UPLOAD';
-}
-
 export default function ProduksiPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'CMT' | 'KREATIF'>('CMT');
@@ -34,7 +16,8 @@ export default function ProduksiPage() {
     }
   }, [router]);
 
-  const [spkList, setSpkList] = useState<SPKItem[]>([
+  // Data State SPK CMT
+  const [spkList, setSpkList] = useState([
     {
       id: '1',
       productName: 'Lavie Pants Black',
@@ -53,7 +36,8 @@ export default function ProduksiPage() {
     },
   ]);
 
-  const [contentList, setContentList] = useState<ContentItem[]>([
+  // Data State Tim Kreatif
+  const [contentList, setContentList] = useState([
     {
       id: '1',
       title: 'Fitcheck Lavie Pants Black M',
@@ -72,15 +56,17 @@ export default function ProduksiPage() {
     },
   ]);
 
+  // Modal State CMT
   const [showSpkModal, setShowSpkModal] = useState(false);
   const [newProductName, setNewProductName] = useState('');
   const [newQty, setNewQty] = useState('');
   const [newVendor, setNewVendor] = useState('CV Taylor Pekalongan');
   const [newTargetDate, setNewTargetDate] = useState('');
 
+  // Modal State Kreatif
   const [showContentModal, setShowContentModal] = useState(false);
   const [newContentTitle, setNewContentTitle] = useState('');
-  const [newPlatform, setNewPlatform] = useState<'TikTok' | 'Instagram Reels'>('TikTok');
+  const [newPlatform, setNewPlatform] = useState('TikTok');
   const [newTalent, setNewTalent] = useState('Incess');
   const [newShootDate, setNewShootDate] = useState('');
 
@@ -88,16 +74,17 @@ export default function ProduksiPage() {
     e.preventDefault();
     if (!newProductName.trim() || !newQty) return;
 
-    const newItem: SPKItem = {
-      id: Date.now().toString(),
-      productName: newProductName.trim(),
-      qty: parseInt(newQty) || 0,
-      vendor: newVendor,
-      targetDate: newTargetDate || '2026-11-01',
-      status: 'POTONG KAIN',
-    };
-
-    setSpkList([newItem, ...spkList]);
+    setSpkList([
+      {
+        id: Date.now().toString(),
+        productName: newProductName.trim(),
+        qty: parseInt(newQty) || 0,
+        vendor: newVendor,
+        targetDate: newTargetDate || '2026-11-01',
+        status: 'POTONG KAIN',
+      },
+      ...spkList,
+    ]);
     setNewProductName('');
     setNewQty('');
     setShowSpkModal(false);
@@ -107,13 +94,13 @@ export default function ProduksiPage() {
     setSpkList((prev) =>
       prev.map((item) => {
         if (item.id === id) {
-          const statusOrder: Record<SPKItem['status'], SPKItem['status']> = {
+          const statusOrder: Record<string, string> = {
             'POTONG KAIN': 'PROSES JAHIT',
             'PROSES JAHIT': 'FINISHING',
-            FINISHING: 'SELESAI QC',
+            'FINISHING': 'SELESAI QC',
             'SELESAI QC': 'POTONG KAIN',
           };
-          return { ...item, status: statusOrder[item.status] };
+          return { ...item, status: statusOrder[item.status] || 'POTONG KAIN' };
         }
         return item;
       })
@@ -124,16 +111,17 @@ export default function ProduksiPage() {
     e.preventDefault();
     if (!newContentTitle.trim()) return;
 
-    const newItem: ContentItem = {
-      id: Date.now().toString(),
-      title: newContentTitle.trim(),
-      platform: newPlatform,
-      talent: newTalent,
-      shootDate: newShootDate || '2026-10-21',
-      status: 'DRAFT HOOK',
-    };
-
-    setContentList([newItem, ...contentList]);
+    setContentList([
+      {
+        id: Date.now().toString(),
+        title: newContentTitle.trim(),
+        platform: newPlatform,
+        talent: newTalent,
+        shootDate: newShootDate || '2026-10-21',
+        status: 'DRAFT HOOK',
+      },
+      ...contentList,
+    ]);
     setNewContentTitle('');
     setShowContentModal(false);
   };
@@ -142,13 +130,13 @@ export default function ProduksiPage() {
     setContentList((prev) =>
       prev.map((item) => {
         if (item.id === id) {
-          const statusOrder: Record<ContentItem['status'], ContentItem['status']> = {
+          const statusOrder: Record<string, string> = {
             'DRAFT HOOK': 'PROSES TAKE',
             'PROSES TAKE': 'EDITING',
-            EDITING: 'READY UPLOAD',
+            'EDITING': 'READY UPLOAD',
             'READY UPLOAD': 'DRAFT HOOK',
           };
-          return { ...item, status: statusOrder[item.status] };
+          return { ...item, status: statusOrder[item.status] || 'DRAFT HOOK' };
         }
         return item;
       })
@@ -199,9 +187,7 @@ export default function ProduksiPage() {
               type="button"
               onClick={() => setActiveTab('CMT')}
               className={`px-4 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeTab === 'CMT'
-                  ? 'bg-white text-black shadow-sm'
-                  : 'text-gray-600 hover:text-black'
+                activeTab === 'CMT' ? 'bg-white text-black shadow-sm' : 'text-gray-600 hover:text-black'
               }`}
             >
               <span>✂️</span> CMT Konveksi
@@ -210,9 +196,7 @@ export default function ProduksiPage() {
               type="button"
               onClick={() => setActiveTab('KREATIF')}
               className={`px-4 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeTab === 'KREATIF'
-                  ? 'bg-black text-white shadow-sm'
-                  : 'text-gray-600 hover:text-black'
+                activeTab === 'KREATIF' ? 'bg-black text-white shadow-sm' : 'text-gray-600 hover:text-black'
               }`}
             >
               <span>📹</span> Tim Kreatif
@@ -287,9 +271,7 @@ export default function ProduksiPage() {
                     <h4 className="text-lg font-black text-black">{item.title}</h4>
                     <span
                       className={`text-xs font-black px-2.5 py-0.5 rounded-full ${
-                        item.platform === 'TikTok'
-                          ? 'bg-black text-white'
-                          : 'bg-pink-100 text-pink-600'
+                        item.platform === 'TikTok' ? 'bg-black text-white' : 'bg-pink-100 text-pink-600'
                       }`}
                     >
                       {item.platform}
@@ -411,7 +393,7 @@ export default function ProduksiPage() {
                   <label className="block text-xs font-black text-black mb-1 uppercase">Platform</label>
                   <select
                     value={newPlatform}
-                    onChange={(e) => setNewPlatform(e.target.value as any)}
+                    onChange={(e) => setNewPlatform(e.target.value)}
                     style={{ color: '#000000', backgroundColor: '#ffffff' }}
                     className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
                   >
@@ -462,7 +444,6 @@ export default function ProduksiPage() {
             </div>
           </div>
         )}
-
       </main>
     </div>
   );
