@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
-/* Reset paksa agar tag img tidak dipaksa width 100% */
+/* Menetralkan paksaan width 100% dari Tailwind */
 img {
-  max-width: none !important;
+  width: auto;
+  height: auto;
+  max-width: none;
 }
 
 body {
