@@ -1,444 +1,141 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-export default function ProduksiPage() {
+export default function ProduksiKreatifPage() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'CMT' | 'KREATIF'>('CMT');
-
-  useEffect(() => {
-    const isAuth = localStorage.getItem('elen_auth');
-    if (!isAuth) {
-      router.push('/login');
-    }
-  }, [router]);
-
-  // Data State SPK CMT
-  const [spkList, setSpkList] = useState([
-    {
-      id: '1',
-      productName: 'Lavie Pants Black',
-      qty: 500,
-      vendor: 'CV Taylor Pekalongan',
-      targetDate: '2026-10-25',
-      status: 'PROSES JAHIT',
-    },
-    {
-      id: '2',
-      productName: 'Lavie Pants Mocca',
-      qty: 300,
-      vendor: 'Konveksi Berkah Pekalongan',
-      targetDate: '2026-10-28',
-      status: 'POTONG KAIN',
-    },
-  ]);
-
-  // Data State Tim Kreatif
-  const [contentList, setContentList] = useState([
-    {
-      id: '1',
-      title: 'Fitcheck Lavie Pants Black M',
-      platform: 'TikTok',
-      talent: 'Incess & Team',
-      shootDate: '2026-10-20',
-      status: 'PROSES TAKE',
-    },
-    {
-      id: '2',
-      title: 'Spill Outfit Kuliah Lavie Pants',
-      platform: 'Instagram Reels',
-      talent: 'Duo Matcha',
-      shootDate: '2026-10-22',
-      status: 'DRAFT HOOK',
-    },
-  ]);
-
-  // Modal State CMT
-  const [showSpkModal, setShowSpkModal] = useState(false);
-  const [newProductName, setNewProductName] = useState('');
-  const [newQty, setNewQty] = useState('');
-  const [newVendor, setNewVendor] = useState('CV Taylor Pekalongan');
-  const [newTargetDate, setNewTargetDate] = useState('');
-
-  // Modal State Kreatif
-  const [showContentModal, setShowContentModal] = useState(false);
-  const [newContentTitle, setNewContentTitle] = useState('');
-  const [newPlatform, setNewPlatform] = useState('TikTok');
-  const [newTalent, setNewTalent] = useState('Incess');
-  const [newShootDate, setNewShootDate] = useState('');
-
-  const handleAddSpk = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newProductName.trim() || !newQty) return;
-
-    setSpkList([
-      {
-        id: Date.now().toString(),
-        productName: newProductName.trim(),
-        qty: parseInt(newQty) || 0,
-        vendor: newVendor,
-        targetDate: newTargetDate || '2026-11-01',
-        status: 'POTONG KAIN',
-      },
-      ...spkList,
-    ]);
-    setNewProductName('');
-    setNewQty('');
-    setShowSpkModal(false);
-  };
-
-  const toggleSpkStatus = (id: string) => {
-    setSpkList((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const statusOrder: Record<string, string> = {
-            'POTONG KAIN': 'PROSES JAHIT',
-            'PROSES JAHIT': 'FINISHING',
-            'FINISHING': 'SELESAI QC',
-            'SELESAI QC': 'POTONG KAIN',
-          };
-          return { ...item, status: statusOrder[item.status] || 'POTONG KAIN' };
-        }
-        return item;
-      })
-    );
-  };
-
-  const handleAddContent = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newContentTitle.trim()) return;
-
-    setContentList([
-      {
-        id: Date.now().toString(),
-        title: newContentTitle.trim(),
-        platform: newPlatform,
-        talent: newTalent,
-        shootDate: newShootDate || '2026-10-21',
-        status: 'DRAFT HOOK',
-      },
-      ...contentList,
-    ]);
-    setNewContentTitle('');
-    setShowContentModal(false);
-  };
-
-  const toggleContentStatus = (id: string) => {
-    setContentList((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const statusOrder: Record<string, string> = {
-            'DRAFT HOOK': 'PROSES TAKE',
-            'PROSES TAKE': 'EDITING',
-            'EDITING': 'READY UPLOAD',
-            'READY UPLOAD': 'DRAFT HOOK',
-          };
-          return { ...item, status: statusOrder[item.status] || 'DRAFT HOOK' };
-        }
-        return item;
-      })
-    );
-  };
+  const [tab, setTab] = useState<'cmt' | 'kreatif'>('kreatif');
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-12">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-black tracking-wider text-black">ELEN STORE</h1>
-            <span className="bg-pink-100 text-pink-600 text-xs font-bold px-2 py-0.5 rounded-full">SYSTEM</span>
+    <div className="min-h-screen bg-[#FAF7F2] text-[#4A3B2C] pb-12">
+      {/* Header Navigasi */}
+      <header className="bg-white/80 backdrop-blur-md border-b border-[#EADEC9] sticky top-0 z-50 px-4 py-3">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#D4AF37]">
+              <Image src="/logo-elenstore.jpeg" alt="Elen Store Logo" fill className="object-cover" />
+            </div>
+            <div>
+              <h1 className="font-bold text-base tracking-widest text-[#5A4632]">ELEN STORE</h1>
+              <p className="text-[9px] text-[#A38A68] tracking-wider uppercase font-semibold">Produksi & Tim Kreatif</p>
+            </div>
           </div>
-          <div className="flex gap-2">
+
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
             <button
               onClick={() => router.push('/dashboard/admin')}
-              className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1"
+              className="flex items-center gap-1.5 whitespace-nowrap bg-white hover:bg-[#F5EFE6] text-[#5A4632] border border-[#EADEC9] text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer"
             >
-              <span>📦</span> Admin Gudang
+              📦 Admin Gudang
             </button>
             <button
               onClick={() => router.push('/dashboard/retur')}
-              className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1"
+              className="flex items-center gap-1.5 whitespace-nowrap bg-white hover:bg-[#F5EFE6] text-[#5A4632] border border-[#EADEC9] text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer"
             >
-              <span>🔄</span> Retur & CS
+              🔄 Retur & CS
             </button>
-            <button className="bg-black text-white px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1">
-              <span>✂️</span> Produksi & Kreatif
+            <button
+              onClick={() => router.push('/dashboard/produksi')}
+              className="flex items-center gap-1.5 whitespace-nowrap bg-[#4A3B2C] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm cursor-pointer"
+            >
+              ✂️ Produksi & Kreatif
             </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 pt-6">
-        <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Main Area */}
+      <main className="max-w-5xl mx-auto px-4 mt-8">
+        <div className="bg-white rounded-3xl p-6 shadow-xl border border-[#EADEC9] mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-black text-black mb-1">
-              Manajemen Produksi & Konten Kreatif
-            </h2>
-            <p className="text-sm font-semibold text-gray-600">
-              Monitoring SPK Konveksi (CMT) & Jadwal B-Roll Tim Kreatif Elen Store.
-            </p>
+            <h2 className="text-xl font-bold text-[#4A3B2C]">Manajemen Produksi & Konten Kreatif</h2>
+            <p className="text-xs text-[#8C7A6B]">Monitoring SPK Konveksi (CMT) & Jadwal B-Roll Tim Kreatif Elen Store.</p>
           </div>
 
-          <div className="flex bg-gray-100 p-1.5 rounded-2xl gap-1 self-start md:self-auto">
+          <div className="flex gap-2 p-1 bg-[#F5EFE6] rounded-2xl text-xs font-bold w-full sm:w-auto">
             <button
-              type="button"
-              onClick={() => setActiveTab('CMT')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeTab === 'CMT' ? 'bg-white text-black shadow-sm' : 'text-gray-600 hover:text-black'
+              onClick={() => setTab('cmt')}
+              className={`flex-1 sm:flex-none px-4 py-2 rounded-xl transition-all ${
+                tab === 'cmt' ? 'bg-[#4A3B2C] text-white shadow-sm' : 'text-[#7C6A58]'
               }`}
             >
-              <span>✂️</span> CMT Konveksi
+              ✂️ CMT Konveksi
             </button>
             <button
-              type="button"
-              onClick={() => setActiveTab('KREATIF')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeTab === 'KREATIF' ? 'bg-black text-white shadow-sm' : 'text-gray-600 hover:text-black'
+              onClick={() => setTab('kreatif')}
+              className={`flex-1 sm:flex-none px-4 py-2 rounded-xl transition-all ${
+                tab === 'kreatif' ? 'bg-[#4A3B2C] text-white shadow-sm' : 'text-[#7C6A58]'
               }`}
             >
-              <span>📹</span> Tim Kreatif
+              📹 Tim Kreatif
             </button>
           </div>
         </div>
 
-        {activeTab === 'CMT' && (
+        {/* Content Section */}
+        {tab === 'cmt' ? (
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-black text-black">Daftar SPK Produksi Jahit</h3>
-              <button
-                type="button"
-                onClick={() => setShowSpkModal(true)}
-                className="bg-black hover:bg-gray-800 text-white font-black text-xs px-4 py-2.5 rounded-2xl transition-all flex items-center gap-1 shadow-md cursor-pointer"
-              >
-                <span>+</span> Tambah SPK CMT
+            <div className="flex justify-between items-center">
+              <h3 className="font-bold text-sm text-[#5A4632] uppercase tracking-wider">Daftar SPK Produksi Jahit</h3>
+              <button className="bg-[#D4AF37] text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#B8952B] transition-all cursor-pointer">
+                + Tambah SPK CMT
               </button>
             </div>
 
-            {spkList.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4"
-              >
-                <div>
-                  <div className="flex items-center gap-3 mb-1">
-                    <h4 className="text-lg font-black text-black">{item.productName}</h4>
-                    <span className="bg-blue-100 text-blue-700 text-xs font-black px-2.5 py-0.5 rounded-full">
-                      {item.qty} Pcs
-                    </span>
-                  </div>
-                  <p className="text-xs font-bold text-gray-600">
-                    Vendor: <span className="text-black">{item.vendor}</span> • Target: {item.targetDate}
-                  </p>
-                </div>
-
+            <div className="bg-white p-5 rounded-3xl border border-[#EADEC9] shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
                 <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => toggleSpkStatus(item.id)}
-                    className="bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-black px-4 py-2.5 rounded-xl transition-all border border-amber-300 flex items-center gap-1 cursor-pointer"
-                  >
-                    <span>🕒</span> {item.status}
-                  </button>
+                  <h4 className="font-bold text-base text-[#4A3B2C]">Lavie Pants Black</h4>
+                  <span className="bg-[#F5EFE6] text-[#5A4632] text-[10px] font-bold px-2 py-0.5 rounded-md">
+                    500 Pcs
+                  </span>
                 </div>
+                <p className="text-xs text-[#8C7A6B] mt-1">Vendor: CV Taylor Pekalongan • Target: 2026-10-25</p>
               </div>
-            ))}
+              <span className="bg-[#FFF8E7] text-[#B8952B] border border-[#EADEC9] text-xs font-bold px-3 py-1.5 rounded-xl self-start sm:self-auto">
+                ⏳ PROSES JAHIT
+              </span>
+            </div>
           </div>
-        )}
-
-        {activeTab === 'KREATIF' && (
+        ) : (
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-black text-black">Jadwal Content & Sampel B-Roll</h3>
-              <button
-                type="button"
-                onClick={() => setShowContentModal(true)}
-                className="bg-pink-600 hover:bg-pink-700 text-white font-black text-xs px-4 py-2.5 rounded-2xl transition-all flex items-center gap-1 shadow-md cursor-pointer"
-              >
-                <span>+</span> Buat Jadwal Konten
+            <div className="flex justify-between items-center">
+              <h3 className="font-bold text-sm text-[#5A4632] uppercase tracking-wider">Jadwal Content & Sampel B-Roll</h3>
+              <button className="bg-[#D4AF37] text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#B8952B] transition-all cursor-pointer">
+                + Buat Jadwal Konten
               </button>
             </div>
 
-            {contentList.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4"
-              >
-                <div>
-                  <div className="flex items-center gap-3 mb-1">
-                    <h4 className="text-lg font-black text-black">{item.title}</h4>
-                    <span
-                      className={`text-xs font-black px-2.5 py-0.5 rounded-full ${
-                        item.platform === 'TikTok' ? 'bg-black text-white' : 'bg-pink-100 text-pink-600'
-                      }`}
-                    >
-                      {item.platform}
-                    </span>
-                  </div>
-                  <p className="text-xs font-bold text-gray-600">
-                    Talent: <span className="text-black">{item.talent}</span> • Tanggal: {item.shootDate}
-                  </p>
+            <div className="bg-white p-5 rounded-3xl border border-[#EADEC9] shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h4 className="font-bold text-base text-[#4A3B2C]">Fitcheck Lavie Pants Black M</h4>
+                  <span className="bg-[#4A3B2C] text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
+                    TikTok
+                  </span>
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => toggleContentStatus(item.id)}
-                  className="bg-purple-100 hover:bg-purple-200 text-purple-900 text-xs font-black px-4 py-2.5 rounded-xl transition-all border border-purple-300 flex items-center gap-1.5 cursor-pointer self-start md:self-auto"
-                >
-                  <span>🎬</span> {item.status}
-                </button>
+                <p className="text-xs text-[#8C7A6B] mt-1">Talent: Incess & Team • Tanggal: 2026-10-20</p>
               </div>
-            ))}
-          </div>
-        )}
-
-        {showSpkModal && (
-          <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-gray-300">
-              <h3 className="text-xl font-black text-black mb-4">Form SPK Produksi CMT Baru</h3>
-              <form onSubmit={handleAddSpk} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Nama Produk</label>
-                  <input
-                    type="text"
-                    required
-                    value={newProductName}
-                    onChange={(e) => setNewProductName(e.target.value)}
-                    placeholder="Contoh: Lavie Pants Black"
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Jumlah (Pcs)</label>
-                  <input
-                    type="number"
-                    required
-                    min="1"
-                    value={newQty}
-                    onChange={(e) => setNewQty(e.target.value)}
-                    placeholder="Contoh: 400"
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Vendor Konveksi</label>
-                  <select
-                    value={newVendor}
-                    onChange={(e) => setNewVendor(e.target.value)}
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  >
-                    <option value="CV Taylor Pekalongan">CV Taylor Pekalongan</option>
-                    <option value="Konveksi Berkah Pekalongan">Konveksi Berkah Pekalongan</option>
-                    <option value="CMT Elen Store Utama">CMT Elen Store Utama</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Target Selesai</label>
-                  <input
-                    type="date"
-                    value={newTargetDate}
-                    onChange={(e) => setNewTargetDate(e.target.value)}
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
-
-                <div className="flex gap-2 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowSpkModal(false)}
-                    className="flex-1 bg-gray-200 hover:bg-gray-300 text-black font-extrabold py-3 rounded-xl text-xs"
-                  >
-                    Batal
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 bg-black text-white font-extrabold py-3 rounded-xl text-xs hover:bg-gray-800"
-                  >
-                    Simpan SPK
-                  </button>
-                </div>
-              </form>
+              <span className="bg-[#F5EFE6] text-[#5A4632] border border-[#EADEC9] text-xs font-bold px-3 py-1.5 rounded-xl self-start sm:self-auto">
+                🎬 PROSES TAKE
+              </span>
             </div>
-          </div>
-        )}
 
-        {showContentModal && (
-          <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-gray-300">
-              <h3 className="text-xl font-black text-black mb-4">Buat Jadwal Konten Baru</h3>
-              <form onSubmit={handleAddContent} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Judul / Konsep Konten</label>
-                  <input
-                    type="text"
-                    required
-                    value={newContentTitle}
-                    onChange={(e) => setNewContentTitle(e.target.value)}
-                    placeholder="Contoh: Fitcheck Lavie Pants B-Roll"
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
+            <div className="bg-white p-5 rounded-3xl border border-[#EADEC9] shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h4 className="font-bold text-base text-[#4A3B2C]">Spill Outfit Kuliah Lavie Pants</h4>
+                  <span className="bg-[#EADEC9] text-[#5A4632] text-[10px] font-bold px-2 py-0.5 rounded-md">
+                    Instagram Reels
+                  </span>
                 </div>
-
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Platform</label>
-                  <select
-                    value={newPlatform}
-                    onChange={(e) => setNewPlatform(e.target.value)}
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  >
-                    <option value="TikTok">TikTok</option>
-                    <option value="Instagram Reels">Instagram Reels</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Talent / Host</label>
-                  <input
-                    type="text"
-                    value={newTalent}
-                    onChange={(e) => setNewTalent(e.target.value)}
-                    placeholder="Contoh: Incess / Duo Matcha"
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Tanggal Take Video</label>
-                  <input
-                    type="date"
-                    value={newShootDate}
-                    onChange={(e) => setNewShootDate(e.target.value)}
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
-
-                <div className="flex gap-2 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowContentModal(false)}
-                    className="flex-1 bg-gray-200 hover:bg-gray-300 text-black font-extrabold py-3 rounded-xl text-xs"
-                  >
-                    Batal
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 bg-pink-600 text-white font-extrabold py-3 rounded-xl text-xs hover:bg-pink-700"
-                  >
-                    Simpan Jadwal
-                  </button>
-                </div>
-              </form>
+                <p className="text-xs text-[#8C7A6B] mt-1">Talent: Duo Matcha • Tanggal: 2026-10-22</p>
+              </div>
+              <span className="bg-[#FAF7F2] text-[#8C7A6B] border border-[#EADEC9] text-xs font-bold px-3 py-1.5 rounded-xl self-start sm:self-auto">
+                📝 DRAFT HOOK
+              </span>
             </div>
           </div>
         )}

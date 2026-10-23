@@ -1,216 +1,133 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export default function ReturPage() {
   const router = useRouter();
-
-  // State Form Retur Barang
   const [orderId, setOrderId] = useState('');
-  const [skuRetur, setSkuRetur] = useState('');
-  const [alasanRetur, setAlasanRetur] = useState('Cacat Produksi / Jahitan Rusak');
-  const [loadingRetur, setLoadingRetur] = useState(false);
-  const [msgRetur, setMsgRetur] = useState<{ text: string; isError: boolean } | null>(null);
-
-  // State Form Tiket Ulasan Buruk CS
-  const [platform, setPlatform] = useState<'TikTok Shop' | 'Shopee'>('TikTok Shop');
-  const [bintang, setBintang] = useState<number>(1);
-  const [isiUlasan, setIsiUlasan] = useState('');
-  const [loadingCS, setLoadingCS] = useState(false);
-  const [msgCS, setMsgCS] = useState<{ text: string; isError: boolean } | null>(null);
-
-  useEffect(() => {
-    const isAuth = localStorage.getItem('elen_auth');
-    if (!isAuth) {
-      router.push('/login');
-    }
-  }, [router]);
-
-  // Submit Data Retur
-  const handleSimpanRetur = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!orderId.trim() || !skuRetur.trim()) {
-      setMsgRetur({ text: 'No. Pesanan dan SKU wajib diisi!', isError: true });
-      return;
-    }
-
-    setLoadingRetur(true);
-    setMsgRetur(null);
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setMsgRetur({ text: 'Data retur berhasil dicatat!', isError: false });
-      setOrderId('');
-      setSkuRetur('');
-    } catch (err: any) {
-      setMsgRetur({ text: 'Gagal menyimpan data retur', isError: true });
-    } finally {
-      setLoadingRetur(false);
-    }
-  };
-
-  // Submit Tiket CS
-  const handleSimpanCS = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isiUlasan.trim()) {
-      setMsgCS({ text: 'Isi ulasan pembeli wajib diisi!', isError: true });
-      return;
-    }
-
-    setLoadingCS(true);
-    setMsgCS(null);
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setMsgCS({ text: 'Tiket berhasil ditugaskan ke CS!', isError: false });
-      setIsiUlasan('');
-    } catch (err: any) {
-      setMsgCS({ text: 'Gagal membuat tiket CS', isError: true });
-    } finally {
-      setLoadingCS(false);
-    }
-  };
+  const [sku, setSku] = useState('');
+  const [reason, setReason] = useState('Cacat Produksi / Jahitan Rusak');
+  const [platform, setPlatform] = useState('TikTok Shop');
+  const [rating, setRating] = useState(1);
+  const [reviewText, setReviewText] = useState('');
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-12">
+    <div className="min-h-screen bg-[#FAF7F2] text-[#4A3B2C] pb-12">
       {/* Header Navigasi */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-black tracking-wider text-black">ELEN STORE</h1>
-            <span className="bg-pink-100 text-pink-600 text-xs font-bold px-2 py-0.5 rounded-full">SYSTEM</span>
+      <header className="bg-white/80 backdrop-blur-md border-b border-[#EADEC9] sticky top-0 z-50 px-4 py-3">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#D4AF37]">
+              <Image src="/logo-elenstore.jpeg" alt="Elen Store Logo" fill className="object-cover" />
+            </div>
+            <div>
+              <h1 className="font-bold text-base tracking-widest text-[#5A4632]">ELEN STORE</h1>
+              <p className="text-[9px] text-[#A38A68] tracking-wider uppercase font-semibold">Retur & Handling CS</p>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <button 
+
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+            <button
               onClick={() => router.push('/dashboard/admin')}
-              className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1"
+              className="flex items-center gap-1.5 whitespace-nowrap bg-white hover:bg-[#F5EFE6] text-[#5A4632] border border-[#EADEC9] text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer"
             >
-              <span>📦</span> Admin Gudang
+              📦 Admin Gudang
             </button>
-            <button className="bg-black text-white px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1">
-              <span>🔄</span> Retur & CS
+            <button
+              onClick={() => router.push('/dashboard/retur')}
+              className="flex items-center gap-1.5 whitespace-nowrap bg-[#4A3B2C] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm cursor-pointer"
+            >
+              🔄 Retur & CS
             </button>
-            <button 
+            <button
               onClick={() => router.push('/dashboard/produksi')}
-              className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1"
+              className="flex items-center gap-1.5 whitespace-nowrap bg-white hover:bg-[#F5EFE6] text-[#5A4632] border border-[#EADEC9] text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer"
             >
-              <span>✂️</span> Produksi & Kreatif
+              ✂️ Produksi & Kreatif
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-4 pt-6">
-        {/* Banner Judul */}
-        <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-200 mb-6">
-          <h2 className="text-2xl font-black text-black mb-1">
-            Modul Retur (RMA) & Handling Ulasan CS
-          </h2>
-          <p className="text-sm font-semibold text-gray-600">
-            Pencatatan retur barang 2% harian & tiket penanganan ulasan buruk Elen Store.
-          </p>
+      {/* Content Container */}
+      <main className="max-w-5xl mx-auto px-4 mt-8">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-black text-[#4A3B2C]">Modul Retur (RMA) & Handling Ulasan CS</h2>
+          <p className="text-xs text-[#8C7A6B] mt-1">Pencatatan retur harian & tiket penanganan ulasan pembeli Elen Store.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          {/* FORM 1: PENCATATAN BARANG RETUR */}
-          <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="text-xl">🔄</span>
-              <h3 className="text-lg font-black text-rose-600">Pencatatan Barang Retur</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Form Retur */}
+          <div className="bg-white rounded-3xl p-6 shadow-xl border border-[#EADEC9]">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-lg">🔄</span>
+              <h3 className="font-bold text-sm text-[#5A4632] uppercase tracking-wider">Pencatatan Barang Retur</h3>
             </div>
 
-            <form onSubmit={handleSimpanRetur} className="space-y-5">
+            <form className="space-y-4">
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
-                  No. Pesanan / Order ID
-                </label>
+                <label className="block text-xs font-bold text-[#7C6A58] mb-1">No. Pesanan / Order ID</label>
                 <input
                   type="text"
+                  placeholder="Contoh: TT-20260920-001"
                   value={orderId}
                   onChange={(e) => setOrderId(e.target.value)}
-                  placeholder="Contoh: TT-20260920-001"
-                  style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                  className="w-full bg-white border-2 border-gray-400 rounded-2xl py-3.5 px-4 font-black text-base !text-black placeholder:text-gray-400 focus:outline-none focus:border-black"
+                  className="w-full bg-[#FAF7F2] border border-[#EADEC9] rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:border-[#D4AF37]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
-                  SKU Produk Retur
-                </label>
+                <label className="block text-xs font-bold text-[#7C6A58] mb-1">SKU Produk Retur</label>
                 <input
                   type="text"
-                  value={skuRetur}
-                  onChange={(e) => setSkuRetur(e.target.value)}
                   placeholder="Contoh: LAVIE-NEW-HITAM-M"
-                  style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                  className="w-full bg-white border-2 border-gray-400 rounded-2xl py-3.5 px-4 font-black text-base !text-black placeholder:text-gray-400 focus:outline-none focus:border-black"
+                  value={sku}
+                  onChange={(e) => setSku(e.target.value)}
+                  className="w-full bg-[#FAF7F2] border border-[#EADEC9] rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:border-[#D4AF37]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
-                  Alasan Retur
-                </label>
+                <label className="block text-xs font-bold text-[#7C6A58] mb-1">Alasan Retur</label>
                 <select
-                  value={alasanRetur}
-                  onChange={(e) => setAlasanRetur(e.target.value)}
-                  style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                  className="w-full bg-white border-2 border-gray-400 rounded-2xl py-3.5 px-4 font-black text-sm !text-black focus:outline-none focus:border-black"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  className="w-full bg-[#FAF7F2] border border-[#EADEC9] rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:border-[#D4AF37]"
                 >
-                  <option value="Cacat Produksi / Jahitan Rusak">Cacat Produksi / Jahitan Rusak</option>
-                  <option value="Salah Warna / Ukuran Kirim">Salah Warna / Ukuran Kirim</option>
-                  <option value="Paket Rusak di Ekspedisi">Paket Rusak di Ekspedisi</option>
-                  <option value="Pembeli Tukar Size">Pembeli Tukar Size</option>
+                  <option>Cacat Produksi / Jahitan Rusak</option>
+                  <option>Salah Kirim Ukuran/Warna</option>
+                  <option>Bahan Tidak Sesuai</option>
+                  <option>Paket Rusak di Ekspedisi</option>
                 </select>
               </div>
 
-              {msgRetur && (
-                <div
-                  className={`p-3.5 rounded-2xl text-xs font-bold text-center ${
-                    msgRetur.isError
-                      ? 'bg-red-50 text-red-600 border border-red-200'
-                      : 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                  }`}
-                >
-                  {msgRetur.text}
-                </div>
-              )}
-
               <button
-                type="submit"
-                disabled={loadingRetur}
-                className="w-full bg-slate-900 hover:bg-black text-white font-bold py-4 rounded-2xl transition-all shadow-md disabled:opacity-50"
+                type="button"
+                className="w-full bg-[#5A4632] hover:bg-[#3E2F21] text-white font-bold py-3 rounded-2xl text-xs transition-all shadow-md mt-2 cursor-pointer"
               >
-                {loadingRetur ? 'Memproses...' : 'Simpan Data Retur'}
+                Simpan Data Retur
               </button>
             </form>
           </div>
 
-          {/* FORM 2: TIKET PENANGANAN ULASAN BURUK */}
-          <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="text-xl">⚠️</span>
-              <h3 className="text-lg font-black text-amber-600">Tiket Penanganan Ulasan Buruk</h3>
+          {/* Form Handling CS */}
+          <div className="bg-white rounded-3xl p-6 shadow-xl border border-[#EADEC9]">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-lg">⚠️</span>
+              <h3 className="font-bold text-sm text-[#5A4632] uppercase tracking-wider">Tiket Penanganan Ulasan Buruk</h3>
             </div>
 
-            <form onSubmit={handleSimpanCS} className="space-y-5">
-              {/* Pilihan Platform */}
+            <form className="space-y-4">
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
-                  Platform
-                </label>
-                <div className="grid grid-cols-2 gap-2 p-1 bg-gray-100 rounded-2xl">
+                <label className="block text-xs font-bold text-[#7C6A58] mb-1">Platform</label>
+                <div className="grid grid-cols-2 gap-2 p-1 bg-[#F5EFE6] rounded-2xl text-xs font-bold">
                   <button
                     type="button"
                     onClick={() => setPlatform('TikTok Shop')}
-                    className={`py-2.5 rounded-xl font-bold text-xs transition-all ${
-                      platform === 'TikTok Shop'
-                        ? 'bg-black text-white shadow-sm'
-                        : 'text-gray-700 hover:text-black'
+                    className={`py-2 rounded-xl transition-all ${
+                      platform === 'TikTok Shop' ? 'bg-[#4A3B2C] text-white shadow-sm' : 'text-[#7C6A58]'
                     }`}
                   >
                     TikTok Shop
@@ -218,10 +135,8 @@ export default function ReturPage() {
                   <button
                     type="button"
                     onClick={() => setPlatform('Shopee')}
-                    className={`py-2.5 rounded-xl font-bold text-xs transition-all ${
-                      platform === 'Shopee'
-                        ? 'bg-orange-500 text-white shadow-sm'
-                        : 'text-gray-700 hover:text-black'
+                    className={`py-2 rounded-xl transition-all ${
+                      platform === 'Shopee' ? 'bg-[#4A3B2C] text-white shadow-sm' : 'text-[#7C6A58]'
                     }`}
                   >
                     Shopee
@@ -229,66 +144,45 @@ export default function ReturPage() {
                 </div>
               </div>
 
-              {/* Rating Bintang */}
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
-                  Bintang Ulasan
-                </label>
+                <label className="block text-xs font-bold text-[#7C6A58] mb-1">Bintang Ulasan</label>
                 <div className="flex gap-2">
                   {[1, 2, 3].map((star) => (
                     <button
                       key={star}
                       type="button"
-                      onClick={() => setBintang(star)}
-                      className={`flex-1 py-2.5 rounded-xl font-bold text-xs border-2 transition-all flex items-center justify-center gap-1 ${
-                        bintang === star
-                          ? 'bg-amber-100 border-amber-500 text-amber-900'
-                          : 'bg-white border-gray-300 text-gray-700 hover:border-gray-400'
+                      onClick={() => setRating(star)}
+                      className={`flex-1 py-2 rounded-xl text-xs font-bold border transition-all ${
+                        rating === star
+                          ? 'bg-[#D4AF37] border-[#D4AF37] text-white'
+                          : 'bg-[#FAF7F2] border-[#EADEC9] text-[#7C6A58]'
                       }`}
                     >
-                      <span>⭐</span> {star} Bintang
+                      ⭐ {star} Bintang
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* Isi Ulasan */}
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
-                  Isi Ulasan Pembeli
-                </label>
+                <label className="block text-xs font-bold text-[#7C6A58] mb-1">Isi Ulasan Pembeli</label>
                 <textarea
                   rows={3}
-                  value={isiUlasan}
-                  onChange={(e) => setIsiUlasan(e.target.value)}
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
                   placeholder="Misal: Jahitan di bagian paha lepas saat pertama dipake..."
-                  style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                  className="w-full bg-white border-2 border-gray-400 rounded-2xl py-3 px-4 font-black text-sm !text-black placeholder:text-gray-400 focus:outline-none focus:border-black resize-none"
+                  className="w-full bg-[#FAF7F2] border border-[#EADEC9] rounded-2xl p-3 text-xs focus:outline-none focus:border-[#D4AF37]"
                 />
               </div>
 
-              {msgCS && (
-                <div
-                  className={`p-3.5 rounded-2xl text-xs font-bold text-center ${
-                    msgCS.isError
-                      ? 'bg-red-50 text-red-600 border border-red-200'
-                      : 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                  }`}
-                >
-                  {msgCS.text}
-                </div>
-              )}
-
               <button
-                type="submit"
-                disabled={loadingCS}
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-2xl transition-all shadow-md shadow-orange-100 disabled:opacity-50"
+                type="button"
+                className="w-full bg-[#D4AF37] hover:bg-[#B8952B] text-white font-bold py-3 rounded-2xl text-xs transition-all shadow-md mt-2 cursor-pointer"
               >
-                {loadingCS ? 'Memproses...' : 'Tugaskan ke CS untuk Follow Up'}
+                Tugaskan ke CS untuk Follow Up
               </button>
             </form>
           </div>
-
         </div>
       </main>
     </div>

@@ -1,127 +1,110 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-export default function AdminPage() {
+export default function AdminGudangPage() {
   const router = useRouter();
-  const [type, setType] = useState<'IN' | 'OUT'>('OUT');
+  const [type, setType] = useState<'out' | 'in'>('out');
   const [sku, setSku] = useState('');
-  const [qty, setQty] = useState('1');
-  const [notes, setNotes] = useState('');
+  const [qty, setQty] = useState(1);
+  const [note, setNote] = useState('');
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{ text: string; isError: boolean } | null>(null);
-
-  useEffect(() => {
-    const isAuth = localStorage.getItem('elen_auth');
-    if (!isAuth) {
-      router.push('/login');
-    }
-  }, [router]);
+  const [msg, setMsg] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!sku.trim()) {
-      setMessage({ text: 'Kode SKU wajib diisi!', isError: true });
-      return;
-    }
-
     setLoading(true);
-    setMessage(null);
+    setMsg('');
 
     try {
       const res = await fetch('/api/stock/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sku: sku.trim(),
-          type,
-          qty: parseInt(qty) || 1,
-          notes: notes.trim(),
-        }),
+        body: JSON.stringify({ sku, qty, type, note }),
       });
 
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Gagal memperbarui stok');
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Gagal memperbarui stok');
-      }
-
-      setMessage({ text: `Berhasil! Stok SKU ${sku} terbarui.`, isError: false });
+      setMsg(`✅ Berhasil! Stok ${sku} kini: ${data.data.stock_akhir} pcs`);
       setSku('');
-      setQty('1');
-      setNotes('');
+      setQty(1);
+      setNote('');
     } catch (err: any) {
-      setMessage({ text: err.message || 'Terjadi kesalahan sistem', isError: true });
+      setMsg(`❌ Error: ${err.message}`);
     } finally {
       setLoading(false);
     }
   };
 
-  // Teks petunjuk dinamis sesuai jenis transaksi
-  const notesPlaceholder =
-    type === 'IN'
-      ? 'Misal: Restok dari konveksi Pekalongan'
-      : 'Misal: Diambil tim packing TikTok';
-
   return (
-    <div className="min-h-screen bg-gray-50 pb-12">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-black tracking-wider text-black">ELEN STORE</h1>
-            <span className="bg-pink-100 text-pink-600 text-xs font-bold px-2 py-0.5 rounded-full">SYSTEM</span>
+    <div className="min-h-screen bg-[#FAF7F2] text-[#4A3B2C] pb-12">
+      {/* Navigation Header */}
+      <header className="bg-white/80 backdrop-blur-md border-b border-[#EADEC9] sticky top-0 z-50 px-4 py-3">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#D4AF37]">
+              <Image src="/logo-elenstore.jpeg" alt="Elen Store Logo" fill className="object-cover" />
+            </div>
+            <div>
+              <h1 className="font-bold text-base tracking-widest text-[#5A4632]">ELEN STORE</h1>
+              <p className="text-[9px] text-[#A38A68] tracking-wider uppercase font-semibold">Gudang & Inventaris</p>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <button className="bg-black text-white px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1">
-              <span>📦</span> Admin Gudang
+
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+            <button
+              onClick={() => router.push('/dashboard/admin')}
+              className="flex items-center gap-1.5 whitespace-nowrap bg-[#4A3B2C] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm cursor-pointer"
+            >
+              📦 Admin Gudang
             </button>
-            <button 
+            <button
               onClick={() => router.push('/dashboard/retur')}
-              className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1"
+              className="flex items-center gap-1.5 whitespace-nowrap bg-white hover:bg-[#F5EFE6] text-[#5A4632] border border-[#EADEC9] text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer"
             >
-              <span>🔄</span> Retur & CS
+              🔄 Retur & CS
             </button>
-            <button 
+            <button
               onClick={() => router.push('/dashboard/produksi')}
-              className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1"
+              className="flex items-center gap-1.5 whitespace-nowrap bg-white hover:bg-[#F5EFE6] text-[#5A4632] border border-[#EADEC9] text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer"
             >
-              <span>✂️</span> Produksi & Kreatif
+              ✂️ Produksi & Kreatif
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Form */}
-      <main className="max-w-md mx-auto px-4 pt-8">
-        <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            
-            {/* JENIS TRANSAKSI */}
+      {/* Main Container */}
+      <main className="max-w-xl mx-auto px-4 mt-8">
+        <div className="bg-white rounded-3xl p-6 shadow-xl border border-[#EADEC9]">
+          <h2 className="text-xl font-bold text-[#4A3B2C] mb-1 text-center">PWA Scanner & Input Stok</h2>
+          <p className="text-xs text-[#8C7A6B] mb-6 text-center">Pencatatan real-time barang keluar/masuk gudang Elen Store.</p>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
-                Jenis Transaksi
-              </label>
-              <div className="grid grid-cols-2 gap-2 p-1 bg-gray-100 rounded-2xl">
+              <label className="block text-xs font-bold text-[#5A4632] uppercase tracking-wider mb-2">Jenis Transaksi</label>
+              <div className="grid grid-cols-2 gap-2 p-1 bg-[#F5EFE6] rounded-2xl">
                 <button
                   type="button"
-                  onClick={() => setType('OUT')}
-                  className={`py-3 rounded-xl font-bold text-sm transition-all ${
-                    type === 'OUT'
-                      ? 'bg-pink-600 text-white shadow-sm'
-                      : 'text-gray-600 hover:text-black'
+                  onClick={() => setType('out')}
+                  className={`py-2.5 rounded-xl text-xs font-bold transition-all ${
+                    type === 'out'
+                      ? 'bg-[#C85A32] text-white shadow-md'
+                      : 'text-[#7C6A58] hover:text-[#4A3B2C]'
                   }`}
                 >
                   Ambil (Barang Keluar)
                 </button>
                 <button
                   type="button"
-                  onClick={() => setType('IN')}
-                  className={`py-3 rounded-xl font-bold text-sm transition-all ${
-                    type === 'IN'
-                      ? 'bg-emerald-600 text-white shadow-sm'
-                      : 'text-gray-600 hover:text-black'
+                  onClick={() => setType('in')}
+                  className={`py-2.5 rounded-xl text-xs font-bold transition-all ${
+                    type === 'in'
+                      ? 'bg-[#5B8C5A] text-white shadow-md'
+                      : 'text-[#7C6A58] hover:text-[#4A3B2C]'
                   }`}
                 >
                   Tambah (Restok)
@@ -129,79 +112,57 @@ export default function AdminPage() {
               </div>
             </div>
 
-            {/* KODE SKU PRODUK */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
-                Kode SKU Produk
-              </label>
+              <label className="block text-xs font-bold text-[#5A4632] uppercase tracking-wider mb-1">Kode SKU Produk</label>
               <input
                 type="text"
+                required
                 value={sku}
                 onChange={(e) => setSku(e.target.value)}
-                placeholder="misal: lavie pants"
-                style={{ color: '#000000' }}
-                className="w-full bg-white border-2 border-gray-300 rounded-2xl py-3.5 px-4 font-bold text-base text-black placeholder-gray-500 focus:outline-none focus:border-black"
+                placeholder="Misal: lavie pants black"
+                className="w-full bg-[#FAF7F2] border border-[#EADEC9] rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
               />
             </div>
 
-            {/* JUMLAH (PCS) */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
-                Jumlah (PCS)
-              </label>
+              <label className="block text-xs font-bold text-[#5A4632] uppercase tracking-wider mb-1">Jumlah (Pcs)</label>
               <input
                 type="number"
                 min="1"
+                required
                 value={qty}
-                onChange={(e) => setQty(e.target.value)}
-                style={{ color: '#000000' }}
-                className="w-full bg-white border-2 border-gray-300 rounded-2xl py-3.5 px-4 font-bold text-lg text-black placeholder-gray-500 focus:outline-none focus:border-black"
+                onChange={(e) => setQty(Number(e.target.value))}
+                className="w-full bg-[#FAF7F2] border border-[#EADEC9] rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
               />
             </div>
 
-            {/* CATATAN / KETERANGAN */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
-                Catatan / Keterangan
-              </label>
+              <label className="block text-xs font-bold text-[#5A4632] uppercase tracking-wider mb-1">Catatan / Keterangan</label>
               <input
                 type="text"
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder={notesPlaceholder}
-                style={{ color: '#000000' }}
-                className="w-full bg-white border-2 border-gray-300 rounded-2xl py-3.5 px-4 font-bold text-sm text-black placeholder-gray-500 focus:outline-none focus:border-black"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="Misal: Diambil tim packing TikTok"
+                className="w-full bg-[#FAF7F2] border border-[#EADEC9] rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
               />
             </div>
 
-            {/* NOTIFIKASI */}
-            {message && (
-              <div
-                className={`p-4 rounded-2xl text-sm font-bold text-center ${
-                  message.isError
-                    ? 'bg-red-50 text-red-600 border border-red-100'
-                    : 'bg-emerald-50 text-emerald-600 border border-emerald-100'
-                }`}
-              >
-                {message.text}
-              </div>
-            )}
-
-            {/* BUTTON SUBMIT */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-pink-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full bg-[#D4AF37] hover:bg-[#B8952B] text-white font-bold py-3.5 rounded-2xl text-sm transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
             >
-              {loading ? (
-                <span>Memproses...</span>
-              ) : (
-                <>
-                  <span>🚀</span> Simpan & Auto Broadcast WA
-                </>
-              )}
+              {loading ? 'Memproses...' : '🚀 Simpan & Auto Broadcast WA'}
             </button>
           </form>
+
+          {msg && (
+            <div className={`mt-5 p-3 rounded-2xl text-xs font-semibold text-center border ${
+              msg.startsWith('✅') ? 'bg-[#F0F7F0] border-[#A8D5A8] text-[#2D5A2D]' : 'bg-[#FDF0ED] border-[#F5C2B8] text-[#A83222]'
+            }`}>
+              {msg}
+            </div>
+          )}
         </div>
       </main>
     </div>
