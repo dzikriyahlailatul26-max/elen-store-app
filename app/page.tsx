@@ -7,18 +7,18 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#4A3B2C] flex flex-col justify-between p-6">
-      {/* Header Top Nav */}
-      <header className="max-w-5xl mx-auto w-full flex items-center justify-between py-4 border-b border-[#EADEC9]">
-        <div className="flex items-center gap-3">
+    <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', color: '#4A3B2C', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '24px', fontFamily: 'sans-serif' }}>
+      {/* Top Header */}
+      <header style={{ maxWidth: '1000px', margin: '0 auto', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px', borderBottom: '1px solid #EADEC9' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <img
             src="/logo-elenstore.jpeg"
             alt="Elen Store Logo"
-            className="w-10 h-10 rounded-full object-cover border border-[#D4AF37] shadow-sm"
+            style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '1px solid #D4AF37' }}
           />
           <div>
-            <h1 className="text-base font-bold tracking-widest text-[#5A4632]">ELEN STORE</h1>
-            <p className="text-[9px] tracking-wider text-[#A38A68] uppercase font-semibold">
+            <h1 style={{ fontSize: '16px', fontWeight: 'bold', letterSpacing: '1px', color: '#5A4632', margin: 0 }}>ELEN STORE</h1>
+            <p style={{ fontSize: '9px', letterSpacing: '1px', color: '#A38A68', margin: 0, textTransform: 'uppercase', fontWeight: 'bold' }}>
               Elegant • Feminine • Timeless
             </p>
           </div>
@@ -26,41 +26,39 @@ export default function Home() {
 
         <button
           onClick={() => router.push('/login')}
-          className="bg-[#D4AF37] hover:bg-[#B8952B] text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md cursor-pointer"
+          style={{ backgroundColor: '#D4AF37', color: '#fff', padding: '8px 16px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}
         >
           Login System
         </button>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-2xl mx-auto w-full text-center py-12 my-auto flex flex-col items-center">
-        <div className="relative mb-6">
-          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mx-auto">
-            <img
-              src="/logo-elenstore.jpeg"
-              alt="Elen Store Main Logo"
-              className="w-full h-full object-cover"
-            />
-          </div>
+      <main style={{ maxWidth: '600px', margin: 'auto', width: '100%', textAlign: 'center', padding: '32px 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ width: '180px', height: '180px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #fff', boxShadow: '0 10px 25px rgba(0,0,0,0.1)', margin: '0 auto 24px auto' }}>
+          <img
+            src="/logo-elenstore.jpeg"
+            alt="Elen Store Main Logo"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
         </div>
 
-        <h2 className="text-2xl md:text-4xl font-black text-[#4A3B2C] tracking-wide mb-3">
+        <h2 style={{ fontSize: '28px', fontWeight: '900', color: '#4A3B2C', letterSpacing: '1px', margin: '0 0 12px 0' }}>
           ELEN STORE COLLECTION
         </h2>
-        <p className="text-xs md:text-sm font-medium text-[#7C6A58] max-w-md mb-8 leading-relaxed">
+        <p style={{ fontSize: '13px', color: '#7C6A58', margin: '0 0 24px 0', lineHeight: '1.6' }}>
           Sistem Manajemen Inventaris Gudang, SPK Produksi Konveksi, dan Jadwal Konten Kreatif Official Elen Store.
         </p>
 
         <button
           onClick={() => router.push('/dashboard/admin')}
-          className="bg-[#4A3B2C] hover:bg-[#33281E] text-white font-bold py-3.5 px-8 rounded-2xl text-xs md:text-sm transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+          style={{ backgroundColor: '#4A3B2C', color: '#fff', fontWeight: 'bold', padding: '14px 28px', borderRadius: '16px', fontSize: '14px', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
         >
-          <span>🔐</span> Masuk ke Dashboard
+          🔐 Masuk ke Dashboard
         </button>
       </main>
 
       {/* Footer */}
-      <footer className="text-center py-4 border-t border-[#EADEC9] text-[11px] text-[#A38A68] font-medium">
+      <footer style={{ textAlign: 'center', paddingTop: '16px', borderTop: '1px solid #EADEC9', fontSize: '11px', color: '#A38A68' }}>
         © 2026 Elen Store Collection. Managed by Incess & Team.
       </footer>
     </div>
