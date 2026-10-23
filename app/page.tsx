@@ -7,27 +7,32 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#4A3B2C] flex flex-col items-center justify-center p-4">
-      <div className="text-center max-w-md w-full bg-white p-8 rounded-3xl shadow-lg border border-[#EADEC9]">
-        <img
-          src="/logo-elenstore.jpeg"
-          alt="Elen Store Logo"
-          width="120"
-          height="120"
-          className="mx-auto rounded-full object-cover border-2 border-[#D4AF37] mb-4"
-        />
-        <h1 className="text-2xl font-bold tracking-wide text-[#5A4632] mb-1">
+    <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+      <div style={{ backgroundColor: '#ffffff', border: '1px solid #EADEC9', borderRadius: '24px', padding: '32px', textAlign: 'center', maxWidth: '400px', width: '100%', boxShadow: '0 10px 25px rgba(0,0,0,0.05)' }}>
+        
+        {/* Frame Logo Terkunci */}
+        <div style={{ width: '130px', height: '130px', margin: '0 auto 16px auto', borderRadius: '50%', overflow: 'hidden', border: '2px solid #D4AF37' }}>
+          <img
+            src="/logo-elenstore.jpeg"
+            alt="Elen Store Logo"
+            style={{ width: '130px', height: '130px', objectFit: 'cover' }}
+          />
+        </div>
+
+        <h1 style={{ fontSize: '20px', fontWeight: 'bold', color: '#5A4632', margin: '0 0 6px 0', letterSpacing: '1px' }}>
           ELEN STORE COLLECTION
         </h1>
-        <p className="text-xs text-[#A38A68] uppercase font-semibold tracking-wider mb-6">
+        <p style={{ fontSize: '11px', color: '#A38A68', textTransform: 'uppercase', fontWeight: 'bold', letterSpacing: '1px', margin: '0 0 24px 0' }}>
           Elegant • Feminine • Timeless
         </p>
+
         <button
           onClick={() => router.push('/dashboard/admin')}
-          className="w-full bg-[#4A3B2C] hover:bg-[#33281E] text-white font-bold py-3 rounded-2xl text-xs transition-all shadow-md cursor-pointer"
+          style={{ width: '100%', backgroundColor: '#4A3B2C', color: '#ffffff', fontWeight: 'bold', padding: '12px', borderRadius: '14px', fontSize: '13px', border: 'none', cursor: 'pointer' }}
         >
           🔐 Masuk ke Dashboard
         </button>
+
       </div>
     </div>
   );

@@ -1,6 +1,14 @@
 @import "tailwindcss";
 
+/* Reset paksa agar tag img tidak dipaksa width 100% */
+img {
+  max-width: none !important;
+}
+
 body {
   margin: 0;
   padding: 0;
+  background-color: #FAF7F2;
+  color: #4A3B2C;
+  font-family: system-ui, -apple-system, sans-serif;
 }
