@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
-/* Menetralkan paksaan width 100% dari Tailwind */
-img {
-  width: auto;
-  height: auto;
-  max-width: none;
+/* Matikan paksaan width 100% bawaan Tailwind v4 */
+img, svg, video, canvas, audio, iframe, embed, object {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: none !important;
 }
 
 body {
