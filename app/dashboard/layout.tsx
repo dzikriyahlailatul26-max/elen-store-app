@@ -10,12 +10,21 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C' }}>
       
-      {/* Header Navigation Dashboard Single */}
+      {/* Top Header Navigation Dashboard Single */}
       <header style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #EADEC9', padding: '12px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           
-          {/* LOGO CONTAINER BULAT UTUH */}
-          <div style={{ width: '40px', height: '40px', minWidth: '40px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', backgroundColor: '#FAF7F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* LOGO CONTAINER BULAT MURNI TANPA OVERLAY TEKS */}
+          <div style={{ 
+            width: '42px', 
+            height: '42px', 
+            minWidth: '42px', 
+            borderRadius: '50%', 
+            overflow: 'hidden', 
+            border: '1px solid #D4AF37', 
+            backgroundColor: '#FAF7F2',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+          }}>
             <img 
               src="/logo-elenstore.jpeg" 
               alt="Elen Store Logo" 
@@ -62,7 +71,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
       </header>
 
-      {/* Main Content Area */}
+      {/* Main Content */}
       <main style={{ padding: '32px 16px', maxWidth: '1000px', margin: '0 auto' }}>
         {children}
       </main>
