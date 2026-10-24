@@ -37,7 +37,7 @@ export default function AdminGudangPage() {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '20px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '10px' }}>
       <div style={{ backgroundColor: '#ffffff', width: '100%', maxWidth: '440px', borderRadius: '24px', padding: '28px', boxShadow: '0 10px 25px rgba(0,0,0,0.03)', border: '1px solid #F0E8DD' }}>
         
         <form onSubmit={handleSubmit}>
@@ -53,8 +53,7 @@ export default function AdminGudangPage() {
                 style={{
                   flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', border: 'none', cursor: 'pointer',
                   backgroundColor: jenisTransaksi === 'ambil' ? '#4A3B2C' : 'transparent',
-                  color: jenisTransaksi === 'ambil' ? '#ffffff' : '#64748B',
-                  transition: 'all 0.2s'
+                  color: jenisTransaksi === 'ambil' ? '#ffffff' : '#64748B'
                 }}
               >
                 Ambil (Barang Keluar)
@@ -65,8 +64,7 @@ export default function AdminGudangPage() {
                 style={{
                   flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', border: 'none', cursor: 'pointer',
                   backgroundColor: jenisTransaksi === 'tambah' ? '#4A3B2C' : 'transparent',
-                  color: jenisTransaksi === 'tambah' ? '#ffffff' : '#64748B',
-                  transition: 'all 0.2s'
+                  color: jenisTransaksi === 'tambah' ? '#ffffff' : '#64748B'
                 }}
               >
                 Tambah (Restok)

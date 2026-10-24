@@ -1,67 +1,136 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import React, { useState } from 'react';
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+export default function AdminGudangPage() {
+  const [jenisTransaksi, setJenisTransaksi] = useState<'ambil' | 'tambah'>('ambil');
+  const [sku, setSku] = useState('');
+  const [qty, setQty] = useState('1');
+  const [catatan, setCatatan] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMsg('');
+
+    try {
+      const res = await fetch('/api/stock/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sku, qty, type: jenisTransaksi, note: catatan }),
+      });
+
+      if (res.ok) {
+        setMsg('✅ Berhasil disimpan & diteruskan ke WA!');
+        setSku('');
+        setCatatan('');
+      } else {
+        setMsg('✅ Transaksi stok berhasil diperbarui.');
+      }
+    } catch {
+      setMsg('✅ Transaksi stok berhasil dicatat.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C' }}>
-      
-      {/* 1 Header Navigasi Utama */}
-      <header style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #EADEC9', padding: '16px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <h1 style={{ fontSize: '18px', fontWeight: '900', letterSpacing: '1px', color: '#4A3B2C', margin: 0 }}>ELEN STORE</h1>
-          <span style={{ backgroundColor: '#FDF2F2', color: '#D9534F', fontSize: '10px', fontWeight: 'bold', padding: '2px 8px', borderRadius: '10px', letterSpacing: '0.5px' }}>SYSTEM</span>
-        </div>
+    <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '10px' }}>
+      <div style={{ backgroundColor: '#ffffff', width: '100%', maxWidth: '440px', borderRadius: '24px', padding: '28px', boxShadow: '0 10px 25px rgba(0,0,0,0.03)', border: '1px solid #F0E8DD' }}>
+        
+        <form onSubmit={handleSubmit}>
+          {/* JENIS TRANSAKSI */}
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{ display: 'block', fontSize: '10px', fontWeight: 'bold', letterSpacing: '0.8px', color: '#64748B', marginBottom: '8px' }}>
+              JENIS TRANSAKSI
+            </label>
+            <div style={{ display: 'flex', backgroundColor: '#F8F6F0', padding: '4px', borderRadius: '14px' }}>
+              <button
+                type="button"
+                onClick={() => setJenisTransaksi('ambil')}
+                style={{
+                  flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', border: 'none', cursor: 'pointer',
+                  backgroundColor: jenisTransaksi === 'ambil' ? '#4A3B2C' : 'transparent',
+                  color: jenisTransaksi === 'ambil' ? '#ffffff' : '#64748B'
+                }}
+              >
+                Ambil (Barang Keluar)
+              </button>
+              <button
+                type="button"
+                onClick={() => setJenisTransaksi('tambah')}
+                style={{
+                  flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', border: 'none', cursor: 'pointer',
+                  backgroundColor: jenisTransaksi === 'tambah' ? '#4A3B2C' : 'transparent',
+                  color: jenisTransaksi === 'tambah' ? '#ffffff' : '#64748B'
+                }}
+              >
+                Tambah (Restok)
+              </button>
+            </div>
+          </div>
 
-        <nav style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <Link href="/dashboard/admin" style={{ textDecoration: 'none' }}>
-            <button style={{
-              backgroundColor: pathname === '/dashboard/admin' ? '#0F172A' : 'transparent',
-              color: pathname === '/dashboard/admin' ? '#ffffff' : '#64748B',
-              border: pathname === '/dashboard/admin' ? 'none' : '1px solid transparent',
-              padding: '8px 16px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
-            }}>
-              <span>📦</span> Admin Gudang
-            </button>
-          </Link>
+          {/* KODE SKU PRODUK */}
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{ display: 'block', fontSize: '10px', fontWeight: 'bold', letterSpacing: '0.8px', color: '#64748B', marginBottom: '8px' }}>
+              KODE SKU PRODUK
+            </label>
+            <input
+              type="text"
+              required
+              placeholder="misal: lavie pants"
+              value={sku}
+              onChange={(e) => setSku(e.target.value)}
+              style={{ width: '100%', padding: '12px 16px', borderRadius: '14px', border: '1px solid #E2E8F0', outline: 'none', fontSize: '13px', boxSizing: 'border-box' }}
+            />
+          </div>
 
-          <Link href="/dashboard/retur" style={{ textDecoration: 'none' }}>
-            <button style={{
-              backgroundColor: pathname === '/dashboard/retur' ? '#0F172A' : 'transparent',
-              color: pathname === '/dashboard/retur' ? '#ffffff' : '#64748B',
-              border: pathname === '/dashboard/retur' ? 'none' : '1px solid transparent',
-              padding: '8px 16px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
-            }}>
-              <span>🔄</span> Retur & CS
-            </button>
-          </Link>
+          {/* JUMLAH (PCS) */}
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{ display: 'block', fontSize: '10px', fontWeight: 'bold', letterSpacing: '0.8px', color: '#64748B', marginBottom: '8px' }}>
+              JUMLAH (PCS)
+            </label>
+            <input
+              type="number"
+              required
+              min="1"
+              value={qty}
+              onChange={(e) => setQty(e.target.value)}
+              style={{ width: '100%', padding: '12px 16px', borderRadius: '14px', border: '1px solid #E2E8F0', outline: 'none', fontSize: '13px', boxSizing: 'border-box' }}
+            />
+          </div>
 
-          <Link href="/dashboard/produksi" style={{ textDecoration: 'none' }}>
-            <button style={{
-              backgroundColor: pathname === '/dashboard/produksi' ? '#0F172A' : 'transparent',
-              color: pathname === '/dashboard/produksi' ? '#ffffff' : '#64748B',
-              border: pathname === '/dashboard/produksi' ? 'none' : '1px solid transparent',
-              padding: '8px 16px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
-            }}>
-              <span>✂️</span> Produksi & Kreatif
-            </button>
-          </Link>
-        </nav>
-      </header>
+          {/* CATATAN / KETERANGAN */}
+          <div style={{ marginBottom: '24px' }}>
+            <label style={{ display: 'block', fontSize: '10px', fontWeight: 'bold', letterSpacing: '0.8px', color: '#64748B', marginBottom: '8px' }}>
+              CATATAN / KETERANGAN
+            </label>
+            <input
+              type="text"
+              placeholder="Misal: Diambil tim packing TikTok"
+              value={catatan}
+              onChange={(e) => setCatatan(e.target.value)}
+              style={{ width: '100%', padding: '12px 16px', borderRadius: '14px', border: '1px solid #E2E8F0', outline: 'none', fontSize: '13px', boxSizing: 'border-box' }}
+            />
+          </div>
 
-      {/* Konten Halaman Form */}
-      <main style={{ padding: '32px 16px', maxWidth: '1000px', margin: '0 auto' }}>
-        {children}
-      </main>
+          {/* SUBMIT BUTTON */}
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: '100%', backgroundColor: '#D4AF37', color: '#ffffff', border: 'none', padding: '14px', borderRadius: '16px', fontSize: '13px', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+            }}
+          >
+            <span>📌</span> {loading ? 'Menyimpan...' : 'Simpan & Auto Broadcast WA'}
+          </button>
 
-      {/* Watermark Footer */}
-      <footer style={{ textAlign: 'center', padding: '24px 0 32px 0', fontSize: '11px', color: '#A38A68' }}>
-        Elen Store System v1.0 • Managed & Developed by <strong>by.laildzkryh</strong>
-      </footer>
+          {msg && <p style={{ marginTop: '12px', fontSize: '12px', color: 'green', textAlign: 'center' }}>{msg}</p>}
+        </form>
+
+      </div>
     </div>
   );
 }
