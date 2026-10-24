@@ -7,70 +7,46 @@ export default function LandingPage() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C', display: 'flex', flexDirection: 'column' }}>
       
-      {/* Header Topbar */}
-      <header style={{ padding: '16px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {/* HEADER NAVBAR */}
+      <header style={{ padding: '16px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#ffffff', borderBottom: '1px solid #E2E8F0' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ width: '45px', height: '45px', minWidth: '45px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', boxShadow: '0 2px 6px rgba(0,0,0,0.05)', backgroundColor: '#FAF7F2' }}>
-            <img 
-              src="/logo-elenstore.jpeg" 
-              alt="Elen Store Logo" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
-            />
+          <div style={{ width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', backgroundColor: '#FAF7F2' }}>
+            <img src="/logo-elenstore.jpeg" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
-            <h1 style={{ fontSize: '18px', fontWeight: '900', letterSpacing: '1.5px', color: '#3E3225', margin: 0 }}>
-              ELEN STORE
-            </h1>
-            <p style={{ fontSize: '9px', fontWeight: 'bold', color: '#A38A68', letterSpacing: '1px', margin: 0 }}>
-              ELEGANT • FEMININE • TIMELESS
-            </p>
+            <h1 style={{ fontSize: '16px', fontWeight: '900', color: '#3E3225', margin: 0 }}>ELEN STORE</h1>
+            <span style={{ fontSize: '9px', fontWeight: '800', color: '#A38A68' }}>OFFICIAL SYSTEM</span>
           </div>
         </div>
 
-        <Link href="/dashboard/admin" style={{ textDecoration: 'none' }}>
-          <button style={{
-            backgroundColor: '#D4AF37', color: '#ffffff', border: 'none', padding: '10px 24px', borderRadius: '20px', fontWeight: 'bold', fontSize: '12px', cursor: 'pointer', boxShadow: '0 4px 10px rgba(212, 175, 55, 0.25)'
-          }}>
-            Login System
+        {/* TOMBOL KLIK MASUK */}
+        <Link href="/dashboard" style={{ textDecoration: 'none' }}>
+          <button style={{ backgroundColor: '#D4AF37', color: '#ffffff', border: 'none', padding: '10px 24px', borderRadius: '12px', fontWeight: '800', fontSize: '12px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.25)' }}>
+            🚀 Masuk Dashboard
           </button>
         </Link>
       </header>
 
-      {/* Hero Content Utama */}
+      {/* ISI LANDING PAGE */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '40px 20px' }}>
-        
-        {/* Bulatan Logo Emas Asli */}
-        <div style={{
-          width: '220px', height: '220px', minWidth: '220px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #ffffff', boxShadow: '0 15px 35px rgba(0,0,0,0.08), 0 0 0 1px #EADEC9', marginBottom: '28px', backgroundColor: '#FAF7F2'
-        }}>
-          <img 
-            src="/logo-elenstore.jpeg" 
-            alt="Elen Store Large" 
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
-          />
+        <div style={{ width: '160px', height: '160px', borderRadius: '50%', overflow: 'hidden', border: '3px solid #D4AF37', marginBottom: '24px', boxShadow: '0 8px 24px rgba(0,0,0,0.06)' }}>
+          <img src="/logo-elenstore.jpeg" alt="Logo Large" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
 
-        <h1 style={{ fontSize: '38px', fontWeight: '900', letterSpacing: '2px', color: '#3E3225', margin: '0 0 16px 0' }}>
-          ELEN STORE COLLECTION
-        </h1>
-
-        <p style={{ fontSize: '14px', color: '#6B5947', lineHeight: '1.6', maxWidth: '600px', margin: '0 0 32px 0' }}>
-          Sistem Manajemen Inventaris Gudang, SPK Produksi Konveksi, dan <br />
-          Jadwal Konten Kreatif Official Elen Store.
+        <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#3E3225', margin: '0 0 12px 0' }}>ELEN STORE SYSTEM</h1>
+        <p style={{ fontSize: '14px', color: '#6B5947', maxWidth: '500px', margin: '0 0 28px 0', lineHeight: '1.5' }}>
+          Sistem Terpadu Stok Gudang, Retur Paket CS, SPK Produksi CMT, dan Jadwal Konten Kreatif.
         </p>
 
-        <Link href="/dashboard/admin" style={{ textDecoration: 'none' }}>
-          <button style={{
-            backgroundColor: '#433425', color: '#ffffff', border: 'none', padding: '14px 32px', borderRadius: '16px', fontWeight: 'bold', fontSize: '13px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 6px 18px rgba(67, 52, 37, 0.3)'
-          }}>
-            <span>🔐</span> Masuk ke Dashboard
+        <Link href="/dashboard" style={{ textDecoration: 'none' }}>
+          <button style={{ backgroundColor: '#0F172A', color: '#ffffff', border: 'none', padding: '14px 32px', borderRadius: '14px', fontWeight: '800', fontSize: '13px', cursor: 'pointer', boxShadow: '0 4px 14px rgba(15, 23, 42, 0.2)' }}>
+            Buka System Dashboard ➔
           </button>
         </Link>
-
       </main>
 
-      {/* Watermark Footer */}
-      <footer style={{ textAlign: 'center', padding: '20px 0 28px 0', fontSize: '11px', color: '#A38A68' }}>
+      {/* FOOTER */}
+      <footer style={{ textAlign: 'center', padding: '20px 0', fontSize: '11px', color: '#A38A68' }}>
         Elen Store System v1.0 • Managed & Developed by <strong>by.laildzkryh</strong>
       </footer>
 
