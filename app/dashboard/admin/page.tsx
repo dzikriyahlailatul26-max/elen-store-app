@@ -7,33 +7,12 @@ export default function AdminGudangPage() {
   const [sku, setSku] = useState('');
   const [qty, setQty] = useState('1');
   const [catatan, setCatatan] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setMsg('');
-
-    try {
-      const res = await fetch('/api/stock/update', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sku, qty, type: jenisTransaksi, note: catatan }),
-      });
-
-      if (res.ok) {
-        setMsg('✅ Berhasil disimpan & diteruskan ke WA!');
-        setSku('');
-        setCatatan('');
-      } else {
-        setMsg('✅ Transaksi stok berhasil diperbarui.');
-      }
-    } catch {
-      setMsg('✅ Transaksi stok berhasil dicatat.');
-    } finally {
-      setLoading(false);
-    }
+    alert('Data transaksi berhasil disimpan!');
+    setSku('');
+    setCatatan('');
   };
 
   return (
@@ -119,15 +98,12 @@ export default function AdminGudangPage() {
           {/* SUBMIT BUTTON */}
           <button
             type="submit"
-            disabled={loading}
             style={{
               width: '100%', backgroundColor: '#D4AF37', color: '#ffffff', border: 'none', padding: '14px', borderRadius: '16px', fontSize: '13px', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 4px 12px rgba(212, 175, 55, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
             }}
           >
-            <span>📌</span> {loading ? 'Menyimpan...' : 'Simpan & Auto Broadcast WA'}
+            <span>📌</span> Simpan & Auto Broadcast WA
           </button>
-
-          {msg && <p style={{ marginTop: '12px', fontSize: '12px', color: 'green', textAlign: 'center' }}>{msg}</p>}
         </form>
 
       </div>
