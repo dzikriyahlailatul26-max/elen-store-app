@@ -5,14 +5,14 @@ import React, { useState } from 'react';
 export default function ProduksiKreatifPage() {
   const [activeTab, setActiveTab] = useState<'cmt' | 'kreatif'>('cmt');
 
-  // Modal State CMT
+  // State Modal CMT
   const [showModalCMT, setShowModalCMT] = useState(false);
   const [namaProduk, setNamaProduk] = useState('');
   const [jumlahPcs, setJumlahPcs] = useState('');
   const [vendor, setVendor] = useState('CMT Elen Store Utama');
   const [targetSelesai, setTargetSelesai] = useState('');
 
-  // Modal State Kreatif
+  // State Modal Tim Kreatif
   const [showModalKreatif, setShowModalKreatif] = useState(false);
   const [judulKonten, setJudulKonten] = useState('');
   const [platform, setPlatform] = useState('TikTok');
@@ -37,7 +37,7 @@ export default function ProduksiKreatifPage() {
   return (
     <div style={{ maxWidth: '960px', margin: '0 auto' }}>
       
-      {/* Banner Top Header Modul */}
+      {/* CARD BANNER HEADER */}
       <div style={{ 
         backgroundColor: '#ffffff', 
         borderRadius: '24px', 
@@ -58,7 +58,7 @@ export default function ProduksiKreatifPage() {
           </p>
         </div>
 
-        {/* Tab Switch CMT / Tim Kreatif */}
+        {/* TAB SWITCH CMT / TIM KREATIF */}
         <div style={{ display: 'flex', backgroundColor: '#F1F5F9', padding: '4px', borderRadius: '14px' }}>
           <button
             type="button"
@@ -85,7 +85,7 @@ export default function ProduksiKreatifPage() {
         </div>
       </div>
 
-      {/* TAB 1: CMT KONVEKSI */}
+      {/* TAMPILAN TAB 1: CMT KONVEKSI */}
       {activeTab === 'cmt' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
@@ -146,7 +146,7 @@ export default function ProduksiKreatifPage() {
         </div>
       )}
 
-      {/* TAB 2: TIM KREATIF */}
+      {/* TAMPILAN TAB 2: TIM KREATIF */}
       {activeTab === 'kreatif' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
@@ -197,7 +197,7 @@ export default function ProduksiKreatifPage() {
         </div>
       )}
 
-      {/* MODAL 1: FORM SPK PRODUKSI CMT BARU */}
+      {/* MODAL 1: FORM SPK PRODUKSI CMT BARU (Persis Gambar 1) */}
       {showModalCMT && (
         <div style={{
           position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999
@@ -286,7 +286,7 @@ export default function ProduksiKreatifPage() {
         </div>
       )}
 
-      {/* MODAL 2: BUAT JADWAL KONTEN BARU */}
+      {/* MODAL 2: BUAT JADWAL KONTEN BARU (Persis Gambar 2) */}
       {showModalKreatif && (
         <div style={{
           position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999
