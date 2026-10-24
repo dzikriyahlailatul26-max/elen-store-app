@@ -1,448 +1,379 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
-export default function ProduksiPage() {
-  const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'CMT' | 'KREATIF'>('CMT');
-
-  useEffect(() => {
-    const isAuth = localStorage.getItem('elen_auth');
-    if (!isAuth) {
-      router.push('/login');
-    }
-  }, [router]);
-
-  // Data State SPK CMT
-  const [spkList, setSpkList] = useState([
-    {
-      id: '1',
-      productName: 'Lavie Pants Black',
-      qty: 500,
-      vendor: 'CV Taylor Pekalongan',
-      targetDate: '2026-10-25',
-      status: 'PROSES JAHIT',
-    },
-    {
-      id: '2',
-      productName: 'Lavie Pants Mocca',
-      qty: 300,
-      vendor: 'Konveksi Berkah Pekalongan',
-      targetDate: '2026-10-28',
-      status: 'POTONG KAIN',
-    },
-  ]);
-
-  // Data State Tim Kreatif
-  const [contentList, setContentList] = useState([
-    {
-      id: '1',
-      title: 'Fitcheck Lavie Pants Black M',
-      platform: 'TikTok',
-      talent: 'Incess & Team',
-      shootDate: '2026-10-20',
-      status: 'PROSES TAKE',
-    },
-    {
-      id: '2',
-      title: 'Spill Outfit Kuliah Lavie Pants',
-      platform: 'Instagram Reels',
-      talent: 'Duo Matcha',
-      shootDate: '2026-10-22',
-      status: 'DRAFT HOOK',
-    },
-  ]);
+export default function ProduksiKreatifPage() {
+  const [activeTab, setActiveTab] = useState<'cmt' | 'kreatif'>('cmt');
 
   // Modal State CMT
-  const [showSpkModal, setShowSpkModal] = useState(false);
-  const [newProductName, setNewProductName] = useState('');
-  const [newQty, setNewQty] = useState('');
-  const [newVendor, setNewVendor] = useState('CV Taylor Pekalongan');
-  const [newTargetDate, setNewTargetDate] = useState('');
+  const [showModalCMT, setShowModalCMT] = useState(false);
+  const [namaProduk, setNamaProduk] = useState('');
+  const [jumlahPcs, setJumlahPcs] = useState('');
+  const [vendor, setVendor] = useState('CMT Elen Store Utama');
+  const [targetSelesai, setTargetSelesai] = useState('');
 
   // Modal State Kreatif
-  const [showContentModal, setShowContentModal] = useState(false);
-  const [newContentTitle, setNewContentTitle] = useState('');
-  const [newPlatform, setNewPlatform] = useState('TikTok');
-  const [newTalent, setNewTalent] = useState('Incess');
-  const [newShootDate, setNewShootDate] = useState('');
+  const [showModalKreatif, setShowModalKreatif] = useState(false);
+  const [judulKonten, setJudulKonten] = useState('');
+  const [platform, setPlatform] = useState('TikTok');
+  const [talent, setTalent] = useState('Incess');
+  const [tanggalTake, setTanggalTake] = useState('');
 
-  const handleAddSpk = (e: React.FormEvent) => {
+  const handleSimpanCMT = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newProductName.trim() || !newQty) return;
-
-    setSpkList([
-      {
-        id: Date.now().toString(),
-        productName: newProductName.trim(),
-        qty: parseInt(newQty) || 0,
-        vendor: newVendor,
-        targetDate: newTargetDate || '2026-11-01',
-        status: 'POTONG KAIN',
-      },
-      ...spkList,
-    ]);
-    setNewProductName('');
-    setNewQty('');
-    setShowSpkModal(false);
+    alert('SPK Produksi CMT Berhasil Disimpan!');
+    setShowModalCMT(false);
+    setNamaProduk('');
+    setJumlahPcs('');
   };
 
-  const toggleSpkStatus = (id: string) => {
-    setSpkList((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const statusOrder: Record<string, string> = {
-            'POTONG KAIN': 'PROSES JAHIT',
-            'PROSES JAHIT': 'FINISHING',
-            'FINISHING': 'SELESAI QC',
-            'SELESAI QC': 'POTONG KAIN',
-          };
-          return { ...item, status: statusOrder[item.status] || 'POTONG KAIN' };
-        }
-        return item;
-      })
-    );
-  };
-
-  const handleAddContent = (e: React.FormEvent) => {
+  const handleSimpanKreatif = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newContentTitle.trim()) return;
-
-    setContentList([
-      {
-        id: Date.now().toString(),
-        title: newContentTitle.trim(),
-        platform: newPlatform,
-        talent: newTalent,
-        shootDate: newShootDate || '2026-10-21',
-        status: 'DRAFT HOOK',
-      },
-      ...contentList,
-    ]);
-    setNewContentTitle('');
-    setShowContentModal(false);
-  };
-
-  const toggleContentStatus = (id: string) => {
-    setContentList((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const statusOrder: Record<string, string> = {
-            'DRAFT HOOK': 'PROSES TAKE',
-            'PROSES TAKE': 'EDITING',
-            'EDITING': 'READY UPLOAD',
-            'READY UPLOAD': 'DRAFT HOOK',
-          };
-          return { ...item, status: statusOrder[item.status] || 'DRAFT HOOK' };
-        }
-        return item;
-      })
-    );
+    alert('Jadwal Konten Berhasil Disimpan!');
+    setShowModalKreatif(false);
+    setJudulKonten('');
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-12">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-black tracking-wider text-black">ELEN STORE</h1>
-            <span className="bg-pink-100 text-pink-600 text-xs font-bold px-2 py-0.5 rounded-full">SYSTEM</span>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => router.push('/dashboard/admin')}
-              className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1"
-            >
-              <span>📦</span> Admin Gudang
-            </button>
-            <button
-              onClick={() => router.push('/dashboard/retur')}
-              className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1"
-            >
-              <span>🔄</span> Retur & CS
-            </button>
-            <button className="bg-black text-white px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1">
-              <span>✂️</span> Produksi & Kreatif
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-5xl mx-auto px-4 pt-6">
-        <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-black text-black mb-1">
-              Manajemen Produksi & Konten Kreatif
-            </h2>
-            <p className="text-sm font-semibold text-gray-600">
-              Monitoring SPK Konveksi (CMT) & Jadwal B-Roll Tim Kreatif Elen Store.
-            </p>
-          </div>
-
-          <div className="flex bg-gray-100 p-1.5 rounded-2xl gap-1 self-start md:self-auto">
-            <button
-              type="button"
-              onClick={() => setActiveTab('CMT')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeTab === 'CMT' ? 'bg-white text-black shadow-sm' : 'text-gray-600 hover:text-black'
-              }`}
-            >
-              <span>✂️</span> CMT Konveksi
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('KREATIF')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeTab === 'KREATIF' ? 'bg-black text-white shadow-sm' : 'text-gray-600 hover:text-black'
-              }`}
-            >
-              <span>📹</span> Tim Kreatif
-            </button>
-          </div>
+    <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+      
+      {/* Banner Top Header */}
+      <div style={{ 
+        backgroundColor: '#ffffff', 
+        borderRadius: '24px', 
+        padding: '24px 32px', 
+        border: '1px solid #E2E8F0', 
+        marginBottom: '24px', 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+      }}>
+        <div>
+          <h2 style={{ fontSize: '22px', fontWeight: '900', color: '#000000', margin: '0 0 6px 0', letterSpacing: '-0.3px' }}>
+            Manajemen Produksi & Tim Kreatif
+          </h2>
+          <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>
+            Monitoring SPK Konveksi (CMT) & Jadwal Konten Kreatif Official Elen Store.
+          </p>
         </div>
 
-        {activeTab === 'CMT' && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-black text-black">Daftar SPK Produksi Jahit</h3>
-              <button
-                type="button"
-                onClick={() => setShowSpkModal(true)}
-                className="bg-black hover:bg-gray-800 text-white font-black text-xs px-4 py-2.5 rounded-2xl transition-all flex items-center gap-1 shadow-md cursor-pointer"
-              >
-                <span>+</span> Tambah SPK CMT
-              </button>
-            </div>
+        {/* Tab Switch CMT / Tim Kreatif */}
+        <div style={{ display: 'flex', backgroundColor: '#F1F5F9', padding: '4px', borderRadius: '14px' }}>
+          <button
+            type="button"
+            onClick={() => setActiveTab('cmt')}
+            style={{
+              padding: '10px 20px', borderRadius: '10px', fontSize: '13px', fontWeight: '800', border: 'none', cursor: 'pointer',
+              backgroundColor: activeTab === 'cmt' ? '#0F172A' : 'transparent',
+              color: activeTab === 'cmt' ? '#ffffff' : '#64748B'
+            }}
+          >
+            🏭 CMT Konveksi
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('kreatif')}
+            style={{
+              padding: '10px 20px', borderRadius: '10px', fontSize: '13px', fontWeight: '800', border: 'none', cursor: 'pointer',
+              backgroundColor: activeTab === 'kreatif' ? '#0F172A' : 'transparent',
+              color: activeTab === 'kreatif' ? '#ffffff' : '#64748B'
+            }}
+          >
+            📹 Tim Kreatif
+          </button>
+        </div>
+      </div>
 
-            {spkList.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4"
-              >
-                <div>
-                  <div className="flex items-center gap-3 mb-1">
-                    <h4 className="text-lg font-black text-black">{item.productName}</h4>
-                    <span className="bg-blue-100 text-blue-700 text-xs font-black px-2.5 py-0.5 rounded-full">
-                      {item.qty} Pcs
-                    </span>
-                  </div>
-                  <p className="text-xs font-bold text-gray-600">
-                    Vendor: <span className="text-black">{item.vendor}</span> • Target: {item.targetDate}
-                  </p>
-                </div>
+      {/* TAMPILAN TAB 1: CMT KONVEKSI */}
+      {activeTab === 'cmt' && (
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: '900', color: '#000000', margin: 0 }}>
+              Daftar SPK Produksi Jahit
+            </h3>
 
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => toggleSpkStatus(item.id)}
-                    className="bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-black px-4 py-2.5 rounded-xl transition-all border border-amber-300 flex items-center gap-1 cursor-pointer"
-                  >
-                    <span>🕒</span> {item.status}
-                  </button>
+            <button
+              type="button"
+              onClick={() => setShowModalCMT(true)}
+              style={{
+                backgroundColor: '#000000', color: '#ffffff', border: 'none', padding: '12px 24px', borderRadius: '20px', fontSize: '13px', fontWeight: '800', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+              }}
+            >
+              + Tambah SPK CMT
+            </button>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '20px', padding: '20px 28px', border: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px' }}>
+                  <h4 style={{ fontSize: '16px', fontWeight: '900', margin: 0, color: '#000' }}>
+                    Lavie Pants Black
+                  </h4>
+                  <span style={{ backgroundColor: '#EFF6FF', color: '#1D4ED8', fontSize: '11px', fontWeight: '800', padding: '3px 10px', borderRadius: '12px' }}>
+                    500 Pcs
+                  </span>
                 </div>
+                <p style={{ fontSize: '12px', color: '#64748B', margin: 0 }}>
+                  Vendor: <strong>CV Taylor Pekalongan</strong> • Target: 2026-11-05
+                </p>
               </div>
-            ))}
-          </div>
-        )}
-
-        {activeTab === 'KREATIF' && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-black text-black">Jadwal Content & Sampel B-Roll</h3>
-              <button
-                type="button"
-                onClick={() => setShowContentModal(true)}
-                className="bg-pink-600 hover:bg-pink-700 text-white font-black text-xs px-4 py-2.5 rounded-2xl transition-all flex items-center gap-1 shadow-md cursor-pointer"
-              >
-                <span>+</span> Buat Jadwal Konten
-              </button>
+              <span style={{ backgroundColor: '#FEF3C7', color: '#92400E', fontSize: '11px', fontWeight: '800', padding: '8px 18px', borderRadius: '12px', border: '1px solid #FCD34D' }}>
+                ⏰ PROSES JAHIT
+              </span>
             </div>
 
-            {contentList.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4"
-              >
-                <div>
-                  <div className="flex items-center gap-3 mb-1">
-                    <h4 className="text-lg font-black text-black">{item.title}</h4>
-                    <span
-                      className={`text-xs font-black px-2.5 py-0.5 rounded-full ${
-                        item.platform === 'TikTok' ? 'bg-black text-white' : 'bg-pink-100 text-pink-600'
-                      }`}
-                    >
-                      {item.platform}
-                    </span>
-                  </div>
-                  <p className="text-xs font-bold text-gray-600">
-                    Talent: <span className="text-black">{item.talent}</span> • Tanggal: {item.shootDate}
-                  </p>
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '20px', padding: '20px 28px', border: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px' }}>
+                  <h4 style={{ fontSize: '16px', fontWeight: '900', margin: 0, color: '#000' }}>
+                    Lavie Pants Mocca
+                  </h4>
+                  <span style={{ backgroundColor: '#EFF6FF', color: '#1D4ED8', fontSize: '11px', fontWeight: '800', padding: '3px 10px', borderRadius: '12px' }}>
+                    300 Pcs
+                  </span>
                 </div>
+                <p style={{ fontSize: '12px', color: '#64748B', margin: 0 }}>
+                  Vendor: <strong>Konveksi Berkah Pekalongan</strong> • Target: 2026-11-10
+                </p>
+              </div>
+              <span style={{ backgroundColor: '#FEF3C7', color: '#92400E', fontSize: '11px', fontWeight: '800', padding: '8px 18px', borderRadius: '12px', border: '1px solid #FCD34D' }}>
+                ⏰ POTONG KAIN
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
 
+      {/* TAMPILAN TAB 2: TIM KREATIF */}
+      {activeTab === 'kreatif' && (
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: '900', color: '#000000', margin: 0 }}>
+              Jadwal Content & Sampel B-Roll
+            </h3>
+
+            <button
+              type="button"
+              onClick={() => setShowModalKreatif(true)}
+              style={{
+                backgroundColor: '#D10056', color: '#ffffff', border: 'none', padding: '12px 24px', borderRadius: '20px', fontSize: '13px', fontWeight: '800', cursor: 'pointer', boxShadow: '0 4px 12px rgba(209, 0, 86, 0.25)'
+              }}
+            >
+              + Buat Jadwal Konten
+            </button>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '20px', padding: '20px 28px', border: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+              <div>
+                <h4 style={{ fontSize: '16px', fontWeight: '900', margin: '0 0 6px 0', color: '#000' }}>
+                  Fitcheck Lavie Pants Black
+                </h4>
+                <p style={{ fontSize: '12px', color: '#64748B', margin: 0 }}>
+                  Talent: <strong>Incess & Team</strong> • Tanggal: 2026-10-20
+                </p>
+              </div>
+              <span style={{ backgroundColor: '#F1F5F9', color: '#334155', fontSize: '11px', fontWeight: '800', padding: '8px 18px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+                🎬 PROSES TAKE
+              </span>
+            </div>
+
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '20px', padding: '20px 28px', border: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+              <div>
+                <h4 style={{ fontSize: '16px', fontWeight: '900', margin: '0 0 6px 0', color: '#000' }}>
+                  Spill Outfit Kuliah Lavie Pants
+                </h4>
+                <p style={{ fontSize: '12px', color: '#64748B', margin: 0 }}>
+                  Talent: <strong>Duo Matcha</strong> • Tanggal: 2026-10-22
+                </p>
+              </div>
+              <span style={{ backgroundColor: '#F1F5F9', color: '#334155', fontSize: '11px', fontWeight: '800', padding: '8px 18px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+                🎬 DRAFT HOOK
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 1: FORM SPK PRODUKSI CMT BARU */}
+      {showModalCMT && (
+        <div style={{
+          position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999
+        }}>
+          <div style={{
+            backgroundColor: '#ffffff', width: '100%', maxWidth: '450px', borderRadius: '28px', padding: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+          }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '900', margin: '0 0 24px 0', color: '#000' }}>
+              Form SPK Produksi CMT Baru
+            </h2>
+
+            <form onSubmit={handleSimpanCMT}>
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000', marginBottom: '8px' }}>
+                  NAMA PRODUK
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Contoh: Lavie Pants Black"
+                  value={namaProduk}
+                  onChange={(e) => setNamaProduk(e.target.value)}
+                  style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '600', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000', marginBottom: '8px' }}>
+                  JUMLAH (PCS)
+                </label>
+                <input
+                  type="number"
+                  required
+                  placeholder="Contoh: 400"
+                  value={jumlahPcs}
+                  onChange={(e) => setJumlahPcs(e.target.value)}
+                  style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '600', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000', marginBottom: '8px' }}>
+                  VENDOR KONVEKSI
+                </label>
+                <select
+                  value={vendor}
+                  onChange={(e) => setVendor(e.target.value)}
+                  style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '700', backgroundColor: '#fff', boxSizing: 'border-box', cursor: 'pointer' }}
+                >
+                  <option value="CMT Elen Store Utama">CMT Elen Store Utama</option>
+                  <option value="CV Taylor Pekalongan">CV Taylor Pekalongan</option>
+                  <option value="Konveksi Berkah Pekalongan">Konveksi Berkah Pekalongan</option>
+                </select>
+              </div>
+
+              <div style={{ marginBottom: '28px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000', marginBottom: '8px' }}>
+                  TARGET SELESAI
+                </label>
+                <input
+                  type="date"
+                  required
+                  value={targetSelesai}
+                  onChange={(e) => setTargetSelesai(e.target.value)}
+                  style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '600', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px' }}>
                 <button
                   type="button"
-                  onClick={() => toggleContentStatus(item.id)}
-                  className="bg-purple-100 hover:bg-purple-200 text-purple-900 text-xs font-black px-4 py-2.5 rounded-xl transition-all border border-purple-300 flex items-center gap-1.5 cursor-pointer self-start md:self-auto"
+                  onClick={() => setShowModalCMT(false)}
+                  style={{ flex: 1, backgroundColor: '#E2E8F0', color: '#334155', border: 'none', padding: '14px', borderRadius: '16px', fontSize: '13px', fontWeight: '800', cursor: 'pointer' }}
                 >
-                  <span>🎬</span> {item.status}
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  style={{ flex: 1, backgroundColor: '#000000', color: '#ffffff', border: 'none', padding: '14px', borderRadius: '16px', fontSize: '13px', fontWeight: '800', cursor: 'pointer' }}
+                >
+                  Simpan SPK
                 </button>
               </div>
-            ))}
+            </form>
           </div>
-        )}
+        </div>
+      )}
 
-        {showSpkModal && (
-          <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-gray-300">
-              <h3 className="text-xl font-black text-black mb-4">Form SPK Produksi CMT Baru</h3>
-              <form onSubmit={handleAddSpk} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Nama Produk</label>
-                  <input
-                    type="text"
-                    required
-                    value={newProductName}
-                    onChange={(e) => setNewProductName(e.target.value)}
-                    placeholder="Contoh: Lavie Pants Black"
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
+      {/* MODAL 2: BUAT JADWAL KONTEN BARU */}
+      {showModalKreatif && (
+        <div style={{
+          position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999
+        }}>
+          <div style={{
+            backgroundColor: '#ffffff', width: '100%', maxWidth: '450px', borderRadius: '28px', padding: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+          }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '900', margin: '0 0 24px 0', color: '#000' }}>
+              Buat Jadwal Konten Baru
+            </h2>
 
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Jumlah (Pcs)</label>
-                  <input
-                    type="number"
-                    required
-                    min="1"
-                    value={newQty}
-                    onChange={(e) => setNewQty(e.target.value)}
-                    placeholder="Contoh: 400"
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
+            <form onSubmit={handleSimpanKreatif}>
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000', marginBottom: '8px' }}>
+                  JUDUL / KONSEP KONTEN
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Contoh: Fitcheck Lavie Pants B-Roll"
+                  value={judulKonten}
+                  onChange={(e) => setJudulKonten(e.target.value)}
+                  style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '600', boxSizing: 'border-box' }}
+                />
+              </div>
 
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Vendor Konveksi</label>
-                  <select
-                    value={newVendor}
-                    onChange={(e) => setNewVendor(e.target.value)}
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  >
-                    <option value="CV Taylor Pekalongan">CV Taylor Pekalongan</option>
-                    <option value="Konveksi Berkah Pekalongan">Konveksi Berkah Pekalongan</option>
-                    <option value="CMT Elen Store Utama">CMT Elen Store Utama</option>
-                  </select>
-                </div>
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000', marginBottom: '8px' }}>
+                  PLATFORM
+                </label>
+                <select
+                  value={platform}
+                  onChange={(e) => setPlatform(e.target.value)}
+                  style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '700', backgroundColor: '#fff', boxSizing: 'border-box', cursor: 'pointer' }}
+                >
+                  <option value="TikTok">TikTok</option>
+                  <option value="Instagram Reels">Instagram Reels</option>
+                  <option value="Shopee Video">Shopee Video</option>
+                </select>
+              </div>
 
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Target Selesai</label>
-                  <input
-                    type="date"
-                    value={newTargetDate}
-                    onChange={(e) => setNewTargetDate(e.target.value)}
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000', marginBottom: '8px' }}>
+                  TALENT / HOST
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={talent}
+                  onChange={(e) => setTalent(e.target.value)}
+                  style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '600', boxSizing: 'border-box' }}
+                />
+              </div>
 
-                <div className="flex gap-2 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowSpkModal(false)}
-                    className="flex-1 bg-gray-200 hover:bg-gray-300 text-black font-extrabold py-3 rounded-xl text-xs"
-                  >
-                    Batal
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 bg-black text-white font-extrabold py-3 rounded-xl text-xs hover:bg-gray-800"
-                  >
-                    Simpan SPK
-                  </button>
-                </div>
-              </form>
-            </div>
+              <div style={{ marginBottom: '28px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000', marginBottom: '8px' }}>
+                  TANGGAL TAKE VIDEO
+                </label>
+                <input
+                  type="date"
+                  required
+                  value={tanggalTake}
+                  onChange={(e) => setTanggalTake(e.target.value)}
+                  style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '600', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowModalKreatif(false)}
+                  style={{ flex: 1, backgroundColor: '#E2E8F0', color: '#334155', border: 'none', padding: '14px', borderRadius: '16px', fontSize: '13px', fontWeight: '800', cursor: 'pointer' }}
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  style={{ flex: 1, backgroundColor: '#E5006D', color: '#ffffff', border: 'none', padding: '14px', borderRadius: '16px', fontSize: '13px', fontWeight: '800', cursor: 'pointer' }}
+                >
+                  Simpan Jadwal
+                </button>
+              </div>
+            </form>
           </div>
-        )}
+        </div>
+      )}
 
-        {showContentModal && (
-          <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-gray-300">
-              <h3 className="text-xl font-black text-black mb-4">Buat Jadwal Konten Baru</h3>
-              <form onSubmit={handleAddContent} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Judul / Konsep Konten</label>
-                  <input
-                    type="text"
-                    required
-                    value={newContentTitle}
-                    onChange={(e) => setNewContentTitle(e.target.value)}
-                    placeholder="Contoh: Fitcheck Lavie Pants B-Roll"
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Platform</label>
-                  <select
-                    value={newPlatform}
-                    onChange={(e) => setNewPlatform(e.target.value)}
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  >
-                    <option value="TikTok">TikTok</option>
-                    <option value="Instagram Reels">Instagram Reels</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Talent / Host</label>
-                  <input
-                    type="text"
-                    value={newTalent}
-                    onChange={(e) => setNewTalent(e.target.value)}
-                    placeholder="Contoh: Incess / Duo Matcha"
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-black mb-1 uppercase">Tanggal Take Video</label>
-                  <input
-                    type="date"
-                    value={newShootDate}
-                    onChange={(e) => setNewShootDate(e.target.value)}
-                    style={{ color: '#000000', backgroundColor: '#ffffff' }}
-                    className="w-full bg-white border-2 border-gray-400 rounded-xl p-3 font-black text-black focus:outline-none focus:border-black"
-                  />
-                </div>
-
-                <div className="flex gap-2 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowContentModal(false)}
-                    className="flex-1 bg-gray-200 hover:bg-gray-300 text-black font-extrabold py-3 rounded-xl text-xs"
-                  >
-                    Batal
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 bg-pink-600 text-white font-extrabold py-3 rounded-xl text-xs hover:bg-pink-700"
-                  >
-                    Simpan Jadwal
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-      </main>
     </div>
   );
 }
