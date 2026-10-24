@@ -96,7 +96,7 @@ export default function ReturPage() {
               </label>
               <div style={{ display: 'flex', backgroundColor: '#F1F5F9', padding: '4px', borderRadius: '14px' }}>
                 <button type="button" onClick={() => setPlatform('tiktok')} style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: '800', border: 'none', cursor: 'pointer', backgroundColor: platform === 'tiktok' ? '#000000' : 'transparent', color: platform === 'tiktok' ? '#ffffff' : '#64748B' }}>TikTok Shop</button>
-                <button type="button" onClick={() => setPlatform('shopee')} style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: '800', border: 'none', cursor: 'pointer', backgroundColor: platform === 'shopee' ? '#EE4D2D' : 'transparent', color: platform === 'shopee' ? '#ffffff' : '#64748B' }}>Shopee</button>
+                <button type="button" onClick={() => setPlatform('shopee')} style={{ flex: 1, padding: '8px', borderRadius: '12px', fontSize: '12px', fontWeight: '800', border: 'none', cursor: 'pointer', backgroundColor: platform === 'shopee' ? '#EE4D2D' : 'transparent', color: platform === 'shopee' ? '#ffffff' : '#64748B' }}>Shopee</button>
               </div>
             </div>
 
