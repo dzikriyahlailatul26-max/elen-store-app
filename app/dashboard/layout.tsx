@@ -10,11 +10,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C' }}>
       
-      {/* Header Navigation Dashboard */}
+      {/* Top Navigation Header Single */}
       <header style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #EADEC9', padding: '12px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           
-          {/* Logo Badge Emas */}
+          {/* Logo Badge Emas Rapi */}
           <div style={{ width: '38px', height: '38px', minWidth: '38px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', backgroundColor: '#FFFDF0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <img 
               src="/logo-elenstore.jpeg" 
@@ -66,12 +66,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
       </header>
 
-      {/* Main Content Area */}
+      {/* Area Konten Utama */}
       <main style={{ padding: '32px 16px', maxWidth: '1000px', margin: '0 auto' }}>
         {children}
       </main>
 
-      {/* Watermark Footer */}
+      {/* Footer Watermark */}
       <footer style={{ textAlign: 'center', padding: '24px 0 32px 0', fontSize: '11px', color: '#A38A68' }}>
         Elen Store System v1.0 • Managed & Developed by <strong>by.laildzkryh</strong>
       </footer>
