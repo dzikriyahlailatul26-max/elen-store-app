@@ -42,14 +42,14 @@ export default function SingleDashboardPage() {
         borderBottom: '1px solid #E2E8F0', 
         padding: '16px 40px', 
         display: 'flex', 
-        justify: 'space-between', 
+        justifyContent: 'space-between', 
         alignItems: 'center',
         position: 'sticky',
         top: 0,
         zIndex: 50,
         boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
       }}>
-        {/* LOGO & BRAND LEFT */}
+        {/* LOGO & BRAND */}
         <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{ width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', backgroundColor: '#FAF7F2' }}>
             <img 
@@ -68,7 +68,7 @@ export default function SingleDashboardPage() {
           </div>
         </Link>
 
-        {/* NAVIGATION BUTTONS */}
+        {/* NAVIGATION BUTTONS SWITCHER */}
         <nav style={{ display: 'flex', gap: '10px' }}>
           <button
             type="button"
