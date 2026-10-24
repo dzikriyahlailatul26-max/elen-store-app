@@ -43,7 +43,7 @@ export default function LandingPage() {
         
         {/* Big Logo Badge Center */}
         <div style={{
-          width: '210px', height: '210px', minWidth: '210px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #ffffff', boxShadow: '0 15px 35px rgba(0,0,0,0.08), 0 0 0 1px #EADEC9', marginBottom: '28px', backgroundColor: '#FAF7F2'
+          width: '220px', height: '220px', minWidth: '220px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #ffffff', boxShadow: '0 15px 35px rgba(0,0,0,0.08), 0 0 0 1px #EADEC9', marginBottom: '28px', backgroundColor: '#FAF7F2'
         }}>
           <img 
             src="/logo-elenstore.jpeg" 
