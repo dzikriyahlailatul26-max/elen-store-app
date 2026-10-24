@@ -37,7 +37,7 @@ export default function AdminGudangPage() {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '20px' }}>
       <div style={{ backgroundColor: '#ffffff', width: '100%', maxWidth: '440px', borderRadius: '24px', padding: '28px', boxShadow: '0 10px 25px rgba(0,0,0,0.03)', border: '1px solid #F0E8DD' }}>
         
         <form onSubmit={handleSubmit}>

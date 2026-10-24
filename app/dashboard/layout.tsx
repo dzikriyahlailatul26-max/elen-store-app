@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C' }}>
       
-      {/* Top Navigation Bar */}
+      {/* 1 Header Navigasi Utama */}
       <header style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #EADEC9', padding: '16px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <h1 style={{ fontSize: '18px', fontWeight: '900', letterSpacing: '1px', color: '#4A3B2C', margin: 0 }}>ELEN STORE</h1>
@@ -53,12 +53,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
       </header>
 
-      {/* Dynamic Content */}
+      {/* Konten Halaman Form */}
       <main style={{ padding: '32px 16px', maxWidth: '1000px', margin: '0 auto' }}>
         {children}
       </main>
 
-      {/* Global Watermark Footer */}
+      {/* Watermark Footer */}
       <footer style={{ textAlign: 'center', padding: '24px 0 32px 0', fontSize: '11px', color: '#A38A68' }}>
         Elen Store System v1.0 • Managed & Developed by <strong>by.laildzkryh</strong>
       </footer>
