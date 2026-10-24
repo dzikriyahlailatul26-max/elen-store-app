@@ -10,21 +10,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C' }}>
       
-      {/* Top Navigation Header Single */}
+      {/* Header Navigation Dashboard Single */}
       <header style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #EADEC9', padding: '12px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           
-          {/* Logo Badge Emas Rapi */}
-          <div style={{ width: '38px', height: '38px', minWidth: '38px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', backgroundColor: '#FFFDF0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* LOGO CONTAINER BULAT UTUH */}
+          <div style={{ width: '40px', height: '40px', minWidth: '40px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', backgroundColor: '#FAF7F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <img 
               src="/logo-elenstore.jpeg" 
-              alt="Logo" 
-              onError={(e) => {
-                (e.target as HTMLElement).style.display = 'none';
-              }}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              alt="Elen Store Logo" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
             />
-            <span style={{ fontSize: '15px', fontWeight: '900', color: '#D4AF37' }}>ES</span>
           </div>
 
           <div>
@@ -66,12 +62,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
       </header>
 
-      {/* Area Konten Utama */}
+      {/* Main Content Area */}
       <main style={{ padding: '32px 16px', maxWidth: '1000px', margin: '0 auto' }}>
         {children}
       </main>
 
-      {/* Footer Watermark */}
+      {/* Watermark Footer */}
       <footer style={{ textAlign: 'center', padding: '24px 0 32px 0', fontSize: '11px', color: '#A38A68' }}>
         Elen Store System v1.0 • Managed & Developed by <strong>by.laildzkryh</strong>
       </footer>
