@@ -11,14 +11,12 @@ export default function LandingPage() {
       <header style={{ padding: '16px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {/* Logo & Brand Left */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{
-            width: '45px', height: '45px', borderRadius: '50%', border: '1px solid #D4AF37', backgroundColor: '#FAF7F2', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
-          }}>
-            <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="46" stroke="#D4AF37" strokeWidth="2" />
-              <path d="M30 35 H60 M30 50 H55 M30 65 H60 M30 35 V65" stroke="#D4AF37" strokeWidth="4" strokeLinecap="round" />
-              <path d="M65 40 C65 35, 50 35, 50 48 C50 62, 65 62, 65 70 C65 78, 48 78, 45 72" stroke="#D4AF37" strokeWidth="4" strokeLinecap="round" fill="none" />
-            </svg>
+          <div style={{ width: '45px', height: '45px', minWidth: '45px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', boxShadow: '0 2px 6px rgba(0,0,0,0.05)', backgroundColor: '#FAF7F2' }}>
+            <img 
+              src="/logo-elenstore.jpeg" 
+              alt="Elen Store Logo" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+            />
           </div>
           <div>
             <h1 style={{ fontSize: '18px', fontWeight: '900', letterSpacing: '1.5px', color: '#3E3225', margin: 0 }}>
@@ -45,33 +43,13 @@ export default function LandingPage() {
         
         {/* Big Logo Badge Center */}
         <div style={{
-          width: '220px', height: '220px', borderRadius: '50%', border: '2px solid #D4AF37', backgroundColor: '#FAF7F2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', boxShadow: '0 15px 35px rgba(0,0,0,0.06), inset 0 0 0 6px #ffffff', marginBottom: '28px', position: 'relative'
+          width: '210px', height: '210px', minWidth: '210px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #ffffff', boxShadow: '0 15px 35px rgba(0,0,0,0.08), 0 0 0 1px #EADEC9', marginBottom: '28px', backgroundColor: '#FAF7F2'
         }}>
-          {/* SVG Design Aesthetic ES */}
-          <svg width="140" height="110" viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Plant Leaf Element */}
-            <path d="M25 65 C20 45, 35 30, 45 35 C35 45, 30 55, 25 65 Z" fill="#D4AF37" opacity="0.8" />
-            <path d="M18 55 C12 42, 22 32, 30 36 C22 42, 20 50, 18 55 Z" fill="#D4AF37" opacity="0.6" />
-            <path d="M30 72 C32 60, 42 52, 48 57 C40 62, 35 68, 30 72 Z" fill="#D4AF37" opacity="0.7" />
-            
-            {/* Letter E */}
-            <path d="M42 22 H75 M42 45 H70 M42 68 H75 M42 22 V68" stroke="#8C6D3B" strokeWidth="5" strokeLinecap="round" />
-            
-            {/* Letter S */}
-            <path d="M78 28 C78 20, 58 20, 58 38 C58 56, 78 56, 78 70 C78 82, 55 82, 52 74" stroke="#B89446" strokeWidth="5" strokeLinecap="round" fill="none" />
-            
-            {/* Sparkle */}
-            <path d="M88 25 L90 20 L92 25 L97 27 L92 29 L90 34 L88 29 L83 27 Z" fill="#D4AF37" />
-          </svg>
-
-          <div style={{ marginTop: '4px' }}>
-            <h2 style={{ fontSize: '15px', fontWeight: '800', letterSpacing: '3px', color: '#3E3225', margin: 0 }}>
-              ELEN STORE
-            </h2>
-            <p style={{ fontSize: '7px', fontWeight: 'bold', letterSpacing: '2px', color: '#A38A68', margin: '3px 0 0 0' }}>
-              COLLECTION
-            </p>
-          </div>
+          <img 
+            src="/logo-elenstore.jpeg" 
+            alt="Elen Store Large" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+          />
         </div>
 
         {/* Main Title */}
