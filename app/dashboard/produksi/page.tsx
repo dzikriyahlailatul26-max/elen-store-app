@@ -37,7 +37,7 @@ export default function ProduksiKreatifPage() {
   return (
     <div style={{ maxWidth: '960px', margin: '0 auto' }}>
       
-      {/* Banner Top Header */}
+      {/* Banner Top Header Modul */}
       <div style={{ 
         backgroundColor: '#ffffff', 
         borderRadius: '24px', 
@@ -85,7 +85,7 @@ export default function ProduksiKreatifPage() {
         </div>
       </div>
 
-      {/* TAMPILAN TAB 1: CMT KONVEKSI */}
+      {/* TAB 1: CMT KONVEKSI */}
       {activeTab === 'cmt' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
@@ -146,7 +146,7 @@ export default function ProduksiKreatifPage() {
         </div>
       )}
 
-      {/* TAMPILAN TAB 2: TIM KREATIF */}
+      {/* TAB 2: TIM KREATIF */}
       {activeTab === 'kreatif' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
