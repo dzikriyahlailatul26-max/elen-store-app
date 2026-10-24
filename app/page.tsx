@@ -1,12 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 
 export default function LandingPage() {
-  const [imgErrorHeader, setImgErrorHeader] = useState(false);
-  const [imgErrorCenter, setImgErrorCenter] = useState(false);
-
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C', display: 'flex', flexDirection: 'column' }}>
       
@@ -14,17 +11,12 @@ export default function LandingPage() {
       <header style={{ padding: '16px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {/* Logo & Brand Left */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ width: '45px', height: '45px', minWidth: '45px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', boxShadow: '0 2px 6px rgba(0,0,0,0.05)', backgroundColor: '#FFFDF0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {!imgErrorHeader ? (
-              <img 
-                src="/logo-elenstore.jpeg" 
-                alt="Elen Store Logo" 
-                onError={() => setImgErrorHeader(true)}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
-            ) : (
-              <span style={{ fontSize: '18px', fontWeight: '900', color: '#D4AF37' }}>ES</span>
-            )}
+          <div style={{ width: '45px', height: '45px', minWidth: '45px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', boxShadow: '0 2px 6px rgba(0,0,0,0.05)' }}>
+            <img 
+              src="/logo-elenstore.jpeg" 
+              alt="Elen Store Logo" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+            />
           </div>
           <div>
             <h1 style={{ fontSize: '18px', fontWeight: '900', letterSpacing: '1.5px', color: '#3E3225', margin: 0 }}>
@@ -51,21 +43,13 @@ export default function LandingPage() {
         
         {/* Big Logo Badge Center */}
         <div style={{
-          width: '210px', height: '210px', minWidth: '210px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #ffffff', boxShadow: '0 15px 35px rgba(0,0,0,0.08), 0 0 0 1px #EADEC9', marginBottom: '28px', backgroundColor: '#FFFDF0', display: 'flex', alignItems: 'center', justifyContent: 'center'
+          width: '210px', height: '210px', minWidth: '210px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #ffffff', boxShadow: '0 15px 35px rgba(0,0,0,0.08), 0 0 0 1px #EADEC9', marginBottom: '28px', backgroundColor: '#FFFDF0'
         }}>
-          {!imgErrorCenter ? (
-            <img 
-              src="/logo-elenstore.jpeg" 
-              alt="Elen Store Large" 
-              onError={() => setImgErrorCenter(true)}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            />
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <span style={{ fontSize: '64px', fontWeight: '900', color: '#D4AF37', lineHeight: 1 }}>ES</span>
-              <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#A38A68', letterSpacing: '2px', marginTop: '8px' }}>ELEN STORE</span>
-            </div>
-          )}
+          <img 
+            src="/logo-elenstore.jpeg" 
+            alt="Elen Store Large" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+          />
         </div>
 
         {/* Main Title */}
