@@ -1,75 +1,71 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-export default function Home() {
-  const router = useRouter();
-
+export default function LandingPage() {
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', color: '#4A3B2C', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '24px 32px', boxSizing: 'border-box' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C', display: 'flex', flexDirection: 'column' }}>
       
-      {/* Top Header */}
-      <header style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px', borderBottom: '1px solid #EADEC9' }}>
+      {/* Top Header Navigation */}
+      <header style={{ padding: '16px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        {/* Logo & Brand Left */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ width: '42px', height: '42px', minWidth: '42px', minHeight: '42px', maxWidth: '42px', maxHeight: '42px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', flexShrink: 0 }}>
-            <img
-              src="/logo-elenstore.jpeg"
-              alt="Elen Store Logo"
-              style={{ width: '42px', height: '42px', minWidth: '42px', minHeight: '42px', maxWidth: '42px', maxHeight: '42px', objectFit: 'cover', display: 'block' }}
-            />
+          <div style={{ width: '45px', height: '45px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', boxShadow: '0 2px 6px rgba(0,0,0,0.05)' }}>
+            <img src="/logo-elenstore.jpeg" alt="Elen Store Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
-            <h1 style={{ fontSize: '16px', fontWeight: 'bold', letterSpacing: '1px', color: '#5A4632', margin: 0 }}>ELEN STORE</h1>
-            <p style={{ fontSize: '9px', letterSpacing: '1px', color: '#A38A68', margin: 0, textTransform: 'uppercase', fontWeight: 'bold' }}>
+            <h1 style={{ fontSize: '18px', fontWeight: '900', letterSpacing: '1.5px', color: '#3E3225', margin: 0 }}>
+              ELEN STORE
+            </h1>
+            <p style={{ fontSize: '9px', fontWeight: 'bold', color: '#A38A68', letterSpacing: '1px', margin: 0 }}>
               ELEGANT • FEMININE • TIMELESS
             </p>
           </div>
         </div>
 
-        <button
-          onClick={() => router.push('/login')}
-          style={{ backgroundColor: '#D4AF37', color: '#ffffff', padding: '8px 20px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold', border: 'none', cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.08)' }}
-        >
-          Login System
-        </button>
+        {/* Login Button Right */}
+        <Link href="/dashboard/login" style={{ textDecoration: 'none' }}>
+          <button style={{
+            backgroundColor: '#D4AF37', color: '#ffffff', border: 'none', padding: '10px 24px', borderRadius: '20px', fontWeight: 'bold', fontSize: '12px', cursor: 'pointer', boxShadow: '0 4px 10px rgba(212, 175, 55, 0.25)'
+          }}>
+            Login System
+          </button>
+        </Link>
       </header>
 
-      {/* Main Hero Section */}
-      <main style={{ maxWidth: '700px', margin: 'auto', width: '100%', textAlign: 'center', padding: '40px 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {/* Main Hero Content Center */}
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '40px 20px' }}>
         
-        {/* Circle Logo Frame */}
-        <div style={{ position: 'relative', width: '180px', height: '180px', minWidth: '180px', minHeight: '180px', maxWidth: '180px', maxHeight: '180px', margin: '0 auto 28px auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', backgroundColor: '#EADEC9', filter: 'blur(20px)', opacity: 0.5 }}></div>
-          <div style={{ position: 'relative', width: '180px', height: '180px', minWidth: '180px', minHeight: '180px', maxWidth: '180px', maxHeight: '180px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #ffffff', boxShadow: '0 12px 30px rgba(0,0,0,0.1)' }}>
-            <img
-              src="/logo-elenstore.jpeg"
-              alt="Elen Store Main Logo"
-              style={{ width: '180px', height: '180px', minWidth: '180px', minHeight: '180px', maxWidth: '180px', maxHeight: '180px', objectFit: 'cover', display: 'block' }}
-            />
-          </div>
+        {/* Big Logo Badge Center */}
+        <div style={{
+          width: '210px', height: '210px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #ffffff', boxShadow: '0 15px 35px rgba(0,0,0,0.08), 0 0 0 1px #EADEC9', marginBottom: '28px'
+        }}>
+          <img src="/logo-elenstore.jpeg" alt="Elen Store Large" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
 
-        <h2 style={{ fontSize: '32px', fontWeight: '900', color: '#4A3B2C', letterSpacing: '1.5px', margin: '0 0 12px 0' }}>
+        {/* Main Title */}
+        <h1 style={{ fontSize: '38px', fontWeight: '900', letterSpacing: '2px', color: '#3E3225', margin: '0 0 16px 0' }}>
           ELEN STORE COLLECTION
-        </h2>
-        
-        <p style={{ fontSize: '13px', color: '#7C6A58', margin: '0 0 32px 0', lineHeight: '1.6', maxWidth: '520px' }}>
-          Sistem Manajemen Inventaris Gudang, SPK Produksi Konveksi, dan Jadwal Konten Kreatif Official Elen Store.
+        </h1>
+
+        {/* Subtitle Description */}
+        <p style={{ fontSize: '14px', color: '#6B5947', lineHeight: '1.6', maxWidth: '600px', margin: '0 0 32px 0' }}>
+          Sistem Manajemen Inventaris Gudang, SPK Produksi Konveksi, dan <br />
+          Jadwal Konten Kreatif Official Elen Store.
         </p>
 
-        <button
-          onClick={() => router.push('/dashboard/admin')}
-          style={{ backgroundColor: '#4A3B2C', color: '#ffffff', fontWeight: 'bold', padding: '14px 32px', borderRadius: '18px', fontSize: '14px', border: 'none', cursor: 'pointer', boxShadow: '0 6px 16px rgba(0,0,0,0.12)', display: 'flex', alignItems: 'center', gap: '8px' }}
-        >
-          <span>🔐</span> Masuk ke Dashboard
-        </button>
+        {/* Enter Dashboard Button */}
+        <Link href="/dashboard/admin" style={{ textDecoration: 'none' }}>
+          <button style={{
+            backgroundColor: '#433425', color: '#ffffff', border: 'none', padding: '14px 32px', borderRadius: '16px', fontWeight: 'bold', fontSize: '13px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 6px 18px rgba(67, 52, 37, 0.3)'
+          }}>
+            <span>🔐</span> Masuk ke Dashboard
+          </button>
+        </Link>
+
       </main>
 
-      {/* Footer */}
-      <footer style={{ textAlign: 'center', paddingTop: '16px', borderTop: '1px solid #EADEC9', fontSize: '11px', color: '#A38A68' }}>
-        © 2026 Elen Store Collection. Managed by Incess & Team.
-      </footer>
     </div>
   );
 }
