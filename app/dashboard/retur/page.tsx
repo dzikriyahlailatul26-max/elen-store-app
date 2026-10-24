@@ -3,12 +3,9 @@
 import React, { useState } from 'react';
 
 export default function ReturPage() {
-  // State Form Retur
   const [orderId, setOrderId] = useState('');
   const [skuRetur, setSkuRetur] = useState('');
   const [alasan, setAlasan] = useState('Cacat Produksi / Jahitan Rusak');
-
-  // State Form Tiket CS
   const [platform, setPlatform] = useState<'tiktok' | 'shopee'>('tiktok');
   const [bintang, setBintang] = useState<number>(1);
   const [ulasan, setUlasan] = useState('');
@@ -29,7 +26,7 @@ export default function ReturPage() {
   return (
     <div style={{ maxWidth: '960px', margin: '0 auto', paddingTop: '10px' }}>
       
-      {/* Banner Judul Modul Top */}
+      {/* Banner Judul Modul */}
       <div style={{
         backgroundColor: '#ffffff',
         borderRadius: '24px',
@@ -86,16 +83,7 @@ export default function ReturPage() {
                 placeholder="Contoh: TT-20260920-001"
                 value={orderId}
                 onChange={(e) => setOrderId(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '14px 16px',
-                  borderRadius: '16px',
-                  border: '2px solid #94A3B8',
-                  outline: 'none',
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  boxSizing: 'border-box'
-                }}
+                style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '600', boxSizing: 'border-box' }}
               />
             </div>
 
@@ -109,16 +97,7 @@ export default function ReturPage() {
                 placeholder="Contoh: LAVIE-NEW-HITAM-M"
                 value={skuRetur}
                 onChange={(e) => setSkuRetur(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '14px 16px',
-                  borderRadius: '16px',
-                  border: '2px solid #94A3B8',
-                  outline: 'none',
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  boxSizing: 'border-box'
-                }}
+                style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '600', boxSizing: 'border-box' }}
               />
             </div>
 
@@ -129,18 +108,7 @@ export default function ReturPage() {
               <select
                 value={alasan}
                 onChange={(e) => setAlasan(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '14px 16px',
-                  borderRadius: '16px',
-                  border: '2px solid #94A3B8',
-                  outline: 'none',
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  backgroundColor: '#ffffff',
-                  boxSizing: 'border-box',
-                  cursor: 'pointer'
-                }}
+                style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '700', backgroundColor: '#ffffff', boxSizing: 'border-box', cursor: 'pointer' }}
               >
                 <option value="Cacat Produksi / Jahitan Rusak">Cacat Produksi / Jahitan Rusak</option>
                 <option value="Salah Kirim Size / Warna">Salah Kirim Size / Warna</option>
@@ -150,17 +118,7 @@ export default function ReturPage() {
 
             <button
               type="submit"
-              style={{
-                width: '100%',
-                backgroundColor: '#0F172A',
-                color: '#ffffff',
-                border: 'none',
-                padding: '16px',
-                borderRadius: '16px',
-                fontSize: '14px',
-                fontWeight: '800',
-                cursor: 'pointer'
-              }}
+              style={{ width: '100%', backgroundColor: '#0F172A', color: '#ffffff', border: 'none', padding: '16px', borderRadius: '16px', fontSize: '14px', fontWeight: '800', cursor: 'pointer' }}
             >
               Simpan Data Retur
             </button>
@@ -183,7 +141,6 @@ export default function ReturPage() {
           </div>
 
           <form onSubmit={handleTugaskanCS}>
-            {/* PLATFORM TOGGLE */}
             <div style={{ marginBottom: '20px' }}>
               <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000000', marginBottom: '8px' }}>
                 PLATFORM
@@ -192,41 +149,20 @@ export default function ReturPage() {
                 <button
                   type="button"
                   onClick={() => setPlatform('tiktok')}
-                  style={{
-                    flex: 1,
-                    padding: '10px',
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    fontWeight: '800',
-                    border: 'none',
-                    cursor: 'pointer',
-                    backgroundColor: platform === 'tiktok' ? '#000000' : 'transparent',
-                    color: platform === 'tiktok' ? '#ffffff' : '#64748B'
-                  }}
+                  style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: '800', border: 'none', cursor: 'pointer', backgroundColor: platform === 'tiktok' ? '#000000' : 'transparent', color: platform === 'tiktok' ? '#ffffff' : '#64748B' }}
                 >
                   TikTok Shop
                 </button>
                 <button
                   type="button"
                   onClick={() => setPlatform('shopee')}
-                  style={{
-                    flex: 1,
-                    padding: '10px',
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    fontWeight: '800',
-                    border: 'none',
-                    cursor: 'pointer',
-                    backgroundColor: platform === 'shopee' ? '#EE4D2D' : 'transparent',
-                    color: platform === 'shopee' ? '#ffffff' : '#64748B'
-                  }}
+                  style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: '800', border: 'none', cursor: 'pointer', backgroundColor: platform === 'shopee' ? '#EE4D2D' : 'transparent', color: platform === 'shopee' ? '#ffffff' : '#64748B' }}
                 >
                   Shopee
                 </button>
               </div>
             </div>
 
-            {/* BINTANG ULASAN */}
             <div style={{ marginBottom: '20px' }}>
               <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000000', marginBottom: '8px' }}>
                 BINTANG ULASAN
@@ -237,17 +173,7 @@ export default function ReturPage() {
                     key={star}
                     type="button"
                     onClick={() => setBintang(star)}
-                    style={{
-                      flex: 1,
-                      padding: '10px 4px',
-                      borderRadius: '12px',
-                      fontSize: '12px',
-                      fontWeight: '800',
-                      cursor: 'pointer',
-                      border: bintang === star ? '2px solid #F59E0B' : '1px solid #CBD5E1',
-                      backgroundColor: bintang === star ? '#FEF3C7' : '#ffffff',
-                      color: bintang === star ? '#92400E' : '#475569'
-                    }}
+                    style={{ flex: 1, padding: '10px 4px', borderRadius: '12px', fontSize: '12px', fontWeight: '800', cursor: 'pointer', border: bintang === star ? '2px solid #F59E0B' : '1px solid #CBD5E1', backgroundColor: bintang === star ? '#FEF3C7' : '#ffffff', color: bintang === star ? '#92400E' : '#475569' }}
                   >
                     ⭐ {star} Bintang
                   </button>
@@ -255,7 +181,6 @@ export default function ReturPage() {
               </div>
             </div>
 
-            {/* ISI ULASAN PEMBELI */}
             <div style={{ marginBottom: '28px' }}>
               <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.8px', color: '#000000', marginBottom: '8px' }}>
                 ISI ULASAN PEMBELI
@@ -265,35 +190,13 @@ export default function ReturPage() {
                 placeholder="Misal: Jahitan di bagian paha lepas saat pertama dipake..."
                 value={ulasan}
                 onChange={(e) => setUlasan(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '14px 16px',
-                  borderRadius: '16px',
-                  border: '2px solid #94A3B8',
-                  outline: 'none',
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  boxSizing: 'border-box',
-                  fontFamily: 'sans-serif',
-                  resize: 'none'
-                }}
+                style={{ width: '100%', padding: '14px 16px', borderRadius: '16px', border: '2px solid #94A3B8', outline: 'none', fontSize: '13px', fontWeight: '600', boxSizing: 'border-box', fontFamily: 'sans-serif', resize: 'none' }}
               />
             </div>
 
-            {/* TOMBOL ORANYE CS */}
             <button
               type="submit"
-              style={{
-                width: '100%',
-                backgroundColor: '#FF5700',
-                color: '#ffffff',
-                border: 'none',
-                padding: '16px',
-                borderRadius: '16px',
-                fontSize: '14px',
-                fontWeight: '800',
-                cursor: 'pointer'
-              }}
+              style={{ width: '100%', backgroundColor: '#FF5700', color: '#ffffff', border: 'none', padding: '16px', borderRadius: '16px', fontSize: '14px', fontWeight: '800', cursor: 'pointer' }}
             >
               Tugaskan ke CS untuk Follow Up
             </button>
