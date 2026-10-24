@@ -7,7 +7,7 @@ export default function LandingPage() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C', display: 'flex', flexDirection: 'column' }}>
       
-      {/* Top Header Navigation */}
+      {/* Header Topbar */}
       <header style={{ padding: '16px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{ width: '45px', height: '45px', minWidth: '45px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', boxShadow: '0 2px 6px rgba(0,0,0,0.05)', backgroundColor: '#FAF7F2' }}>
@@ -36,9 +36,10 @@ export default function LandingPage() {
         </Link>
       </header>
 
-      {/* Main Hero Content Center */}
+      {/* Hero Content Utama */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '40px 20px' }}>
         
+        {/* Bulatan Logo Emas Asli */}
         <div style={{
           width: '220px', height: '220px', minWidth: '220px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #ffffff', boxShadow: '0 15px 35px rgba(0,0,0,0.08), 0 0 0 1px #EADEC9', marginBottom: '28px', backgroundColor: '#FAF7F2'
         }}>
@@ -67,6 +68,11 @@ export default function LandingPage() {
         </Link>
 
       </main>
+
+      {/* Watermark Footer */}
+      <footer style={{ textAlign: 'center', padding: '20px 0 28px 0', fontSize: '11px', color: '#A38A68' }}>
+        Elen Store System v1.0 • Managed & Developed by <strong>by.laildzkryh</strong>
+      </footer>
 
     </div>
   );
