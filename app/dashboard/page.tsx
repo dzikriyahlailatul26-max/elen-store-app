@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 export default function UnifiedElenStoreDashboard() {
-  // State Keamanan PIN
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [inputPin, setInputPin] = useState('');
   const [pinError, setPinError] = useState(false);
@@ -29,7 +28,7 @@ export default function UnifiedElenStoreDashboard() {
   const [jumlahAdmin, setJumlahAdmin] = useState('1');
   const [catatanAdmin, setCatatanAdmin] = useState('');
 
-  // State Retur & CS
+  // State Retur & CS (Lengkap)
   const [noResi, setNoResi] = useState('');
   const [skuRetur, setSkuRetur] = useState('');
   const [alasanRetur, setAlasanRetur] = useState('Cacat Produksi / Jahitan Rusak');
@@ -118,26 +117,63 @@ export default function UnifiedElenStoreDashboard() {
           </div>
         )}
 
+        {/* MODUL RETUR & CS LENGKAP */}
         {activeTab === 'retur' && (
           <div>
             <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '24px 32px', border: '1px solid #E2E8F0', marginBottom: '24px' }}>
-              <h2 style={{ fontSize: '22px', fontWeight: '900', margin: '0 0 6px 0' }}>Modul Retur (RMA) & Handling Ulasan CS</h2>
-              <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>Pencatatan retur barang & tiket penanganan ulasan buruk.</p>
+              <h2 style={{ fontSize: '22px', fontWeight: '900', color: '#000000', margin: '0 0 6px 0' }}>Modul Retur (RMA) & Handling Ulasan CS</h2>
+              <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>Pencatatan retur barang 2% harian & tiket penanganan ulasan buruk Elen Store.</p>
             </div>
+            
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              {/* Form Retur */}
               <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '28px', border: '1px solid #E2E8F0' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '900', color: '#DC2626', marginBottom: '20px' }}>Pencatatan Barang Retur</h3>
-                <form onSubmit={(e) => { e.preventDefault(); alert('Retur Disimpan!'); }}>
-                  <div style={{ marginBottom: '16px' }}><label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>NO. PESANAN</label><input type="text" required value={noResi} onChange={(e) => setNoResi(e.target.value)} style={{ width: '100%', padding: '12px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} /></div>
-                  <div style={{ marginBottom: '16px' }}><label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>SKU PRODUK</label><input type="text" required value={skuRetur} onChange={(e) => setSkuRetur(e.target.value)} style={{ width: '100%', padding: '12px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} /></div>
-                  <button type="submit" style={{ width: '100%', backgroundColor: '#0F172A', color: '#fff', border: 'none', padding: '14px', borderRadius: '14px', fontWeight: '800', cursor: 'pointer' }}>Simpan Retur</button>
+                <form onSubmit={(e) => { e.preventDefault(); alert('Data Retur Disimpan!'); }}>
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', color: '#000', marginBottom: '6px' }}>NO. PESANAN / ORDER ID</label>
+                    <input type="text" required placeholder="Contoh: TT-20260920-001" value={noResi} onChange={(e) => setNoResi(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} />
+                  </div>
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', color: '#000', marginBottom: '6px' }}>SKU PRODUK RETUR</label>
+                    <input type="text" required placeholder="Contoh: LAVIE-NEW-HITAM-M" value={skuRetur} onChange={(e) => setSkuRetur(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} />
+                  </div>
+                  <div style={{ marginBottom: '20px' }}>
+                    <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', color: '#000', marginBottom: '6px' }}>ALASAN RETUR</label>
+                    <select value={alasanRetur} onChange={(e) => setAlasanRetur(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', backgroundColor: '#fff', boxSizing: 'border-box' }}>
+                      <option value="Cacat Produksi / Jahitan Rusak">Cacat Produksi / Jahitan Rusak</option>
+                      <option value="Salah Warna/Ukuran">Salah Warna / Ukuran</option>
+                      <option value="Paket RTS (Gagal Kirim)">Paket RTS (Gagal Kirim)</option>
+                    </select>
+                  </div>
+                  <button type="submit" style={{ width: '100%', backgroundColor: '#0F172A', color: '#fff', border: 'none', padding: '14px', borderRadius: '14px', fontWeight: '800', cursor: 'pointer' }}>Simpan Data Retur</button>
                 </form>
               </div>
+
+              {/* Form Tiket CS */}
               <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '28px', border: '1px solid #E2E8F0' }}>
-                <h3 style={{ fontSize: '15px', fontWeight: '900', color: '#D97706', marginBottom: '20px' }}>Tiket Ulasan Buruk</h3>
+                <h3 style={{ fontSize: '15px', fontWeight: '900', color: '#D97706', marginBottom: '20px' }}>Tiket Penanganan Ulasan Buruk</h3>
                 <form onSubmit={(e) => { e.preventDefault(); alert('Tiket CS Disimpan!'); }}>
-                  <div style={{ marginBottom: '20px' }}><label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>ISI ULASAN</label><textarea rows={3} value={ulasanCS} onChange={(e) => setUlasanCS(e.target.value)} style={{ width: '100%', padding: '12px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} /></div>
-                  <button type="submit" style={{ width: '100%', backgroundColor: '#EA580C', color: '#fff', border: 'none', padding: '14px', borderRadius: '14px', fontWeight: '800', cursor: 'pointer' }}>Tugaskan ke CS</button>
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', color: '#000', marginBottom: '6px' }}>PLATFORM</label>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button type="button" onClick={() => setPlatformCS('tiktok')} style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', fontWeight: '800', cursor: 'pointer', backgroundColor: platformCS === 'tiktok' ? '#000' : '#F1F5F9', color: platformCS === 'tiktok' ? '#fff' : '#64748B' }}>TikTok Shop</button>
+                      <button type="button" onClick={() => setPlatformCS('shopee')} style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', fontWeight: '800', cursor: 'pointer', backgroundColor: platformCS === 'shopee' ? '#EE4D2D' : '#F1F5F9', color: platformCS === 'shopee' ? '#fff' : '#64748B' }}>Shopee</button>
+                    </div>
+                  </div>
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', color: '#000', marginBottom: '6px' }}>BINTANG ULASAN</label>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      {[1, 2, 3].map((num) => (
+                        <button key={num} type="button" onClick={() => setBintangCS(num as any)} style={{ flex: 1, padding: '8px', borderRadius: '10px', border: bintangCS === num ? '2px solid #F59E0B' : '1px solid #CBD5E1', backgroundColor: bintangCS === num ? '#FEF3C7' : '#fff', fontWeight: '800', color: '#D97706', cursor: 'pointer' }}>⭐ {num} Bintang</button>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ marginBottom: '20px' }}>
+                    <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', color: '#000', marginBottom: '6px' }}>ISI ULASAN PEMBELI</label>
+                    <textarea rows={3} placeholder="Misal: Jahitan di bagian paha lepas..." value={ulasanCS} onChange={(e) => setUlasanCS(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} />
+                  </div>
+                  <button type="submit" style={{ width: '100%', backgroundColor: '#EA580C', color: '#fff', border: 'none', padding: '14px', borderRadius: '14px', fontWeight: '800', cursor: 'pointer' }}>Tugaskan ke CS untuk Follow Up</button>
                 </form>
               </div>
             </div>
