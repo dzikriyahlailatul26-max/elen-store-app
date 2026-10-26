@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 export default function UnifiedElenStoreDashboard() {
-  // Navigation State Switcher Modul Utama
+  // Navigation State Switcher Modul Utama (1 Aplikasi Utama)
   const [activeTab, setActiveTab] = useState<'admin' | 'retur' | 'produksi'>('admin');
   
-  // Navigation Sub-Tab Produksi
+  // Navigation Sub-Tab Produksi & Kreatif
   const [activeTabProduksi, setActiveTabProduksi] = useState<'cmt' | 'kreatif'>('cmt');
 
   // State Form Admin Gudang
@@ -24,14 +24,14 @@ export default function UnifiedElenStoreDashboard() {
   const [bintangCS, setBintangCS] = useState<1 | 2 | 3>(1);
   const [ulasanCS, setUlasanCS] = useState('');
 
-  // State Modal Produksi CMT (Input Detail Lengkap)
+  // State Modal Produksi CMT (Lengkap Sesuai Screenshot Incess)
   const [showModalCMT, setShowModalCMT] = useState(false);
   const [namaProdukCMT, setNamaProdukCMT] = useState('');
   const [jumlahPcsCMT, setJumlahPcsCMT] = useState('');
   const [vendorCMT, setVendorCMT] = useState('CV Taylor Pekalongan');
   const [targetCMT, setTargetCMT] = useState('');
 
-  // State Modal Tim Kreatif (Input Detail Lengkap)
+  // State Modal Tim Kreatif (Lengkap Sesuai Screenshot Incess)
   const [showModalKreatif, setShowModalKreatif] = useState(false);
   const [judulKonten, setJudulKonten] = useState('');
   const [platformKonten, setPlatformKonten] = useState('TikTok');
@@ -41,7 +41,7 @@ export default function UnifiedElenStoreDashboard() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#FAF7F2', fontFamily: 'sans-serif', color: '#4A3B2C', display: 'flex', flexDirection: 'column' }}>
       
-      {/* 1. HEADER TOPBAR APLIKASI */}
+      {/* ==================== 1. TOPBAR HEADER NAVIGASI ==================== */}
       <header style={{ 
         backgroundColor: '#ffffff', 
         borderBottom: '1px solid #E2E8F0', 
@@ -54,7 +54,6 @@ export default function UnifiedElenStoreDashboard() {
         zIndex: 50,
         boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
       }}>
-        {/* Brand Logo Left */}
         <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{ width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden', border: '1px solid #D4AF37', backgroundColor: '#FAF7F2' }}>
             <img 
@@ -73,7 +72,7 @@ export default function UnifiedElenStoreDashboard() {
           </div>
         </Link>
 
-        {/* TOPBAR NAVIGATION SWITCHER */}
+        {/* TOMBOL NAVIGASI APPS */}
         <nav style={{ display: 'flex', gap: '10px' }}>
           <button
             type="button"
@@ -116,7 +115,7 @@ export default function UnifiedElenStoreDashboard() {
         </nav>
       </header>
 
-      {/* 2. KONTEN MODUL AKTIF */}
+      {/* ==================== 2. KONTEN MODUL AKTIF ==================== */}
       <main style={{ flex: 1, padding: '32px 20px', maxWidth: '1020px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         
         {/* MODUL 1: ADMIN GUDANG */}
@@ -213,7 +212,6 @@ export default function UnifiedElenStoreDashboard() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-              {/* Form Retur Left */}
               <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '28px', border: '1px solid #E2E8F0' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
                   <span style={{ backgroundColor: '#EFF6FF', color: '#2563EB', padding: '8px', borderRadius: '10px', fontSize: '14px' }}>🔄</span>
@@ -241,7 +239,6 @@ export default function UnifiedElenStoreDashboard() {
                 </form>
               </div>
 
-              {/* Form Ulasan CS Right */}
               <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '28px', border: '1px solid #E2E8F0' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
                   <span style={{ backgroundColor: '#FEF3C7', color: '#D97706', padding: '8px', borderRadius: '10px', fontSize: '14px' }}>⚠️</span>
@@ -396,76 +393,177 @@ export default function UnifiedElenStoreDashboard() {
 
       </main>
 
-      {/* 3. FOOTER WATERMARK RESMI */}
+      {/* FOOTER */}
       <footer style={{ textAlign: 'center', padding: '20px 0 24px 0', fontSize: '11px', color: '#A38A68', borderTop: '1px solid #EADEC9', marginTop: 'auto' }}>
         Elen Store System v1.0 • Managed & Developed by <strong>by.laildzkryh</strong>
       </footer>
 
-      {/* MODAL SPK CMT (INPUTAN LENGKAP) */}
+      {/* ==================== 3. MODAL SPK CMT (DESAIN SCREENSHOT INCESS 100% PRESISI) ==================== */}
       {showModalCMT && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
-          <div style={{ backgroundColor: '#fff', width: '100%', maxWidth: '450px', borderRadius: '28px', padding: '32px' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: '900', margin: '0 0 24px 0', color: '#000' }}>Form SPK Produksi CMT Baru</h2>
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+          <div style={{ backgroundColor: '#ffffff', width: '100%', maxWidth: '440px', borderRadius: '28px', padding: '36px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '900', margin: '0 0 24px 0', color: '#000000' }}>
+              Form SPK Produksi CMT Baru
+            </h2>
             <form onSubmit={(e) => { e.preventDefault(); alert('SPK CMT Berhasil Disimpan!'); setShowModalCMT(false); }}>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>NAMA PRODUK</label>
-                <input type="text" required placeholder="Contoh: Lavie Pants Black" value={namaProdukCMT} onChange={(e) => setNamaProdukCMT(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} />
+              
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.5px', color: '#000000', marginBottom: '8px' }}>
+                  NAMA PRODUK
+                </label>
+                <input 
+                  type="text" 
+                  required 
+                  placeholder="Contoh: Lavie Pants Black" 
+                  value={namaProdukCMT} 
+                  onChange={(e) => setNamaProdukCMT(e.target.value)} 
+                  style={{ width: '100%', padding: '14px 18px', borderRadius: '16px', border: '2px solid #64748B', fontSize: '13px', fontWeight: '600', outline: 'none', boxSizing: 'border-box' }} 
+                />
               </div>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>JUMLAH (PCS)</label>
-                <input type="number" required placeholder="Contoh: 400" value={jumlahPcsCMT} onChange={(e) => setJumlahPcsCMT(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} />
+
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.5px', color: '#000000', marginBottom: '8px' }}>
+                  JUMLAH (PCS)
+                </label>
+                <input 
+                  type="number" 
+                  required 
+                  placeholder="Contoh: 400" 
+                  value={jumlahPcsCMT} 
+                  onChange={(e) => setJumlahPcsCMT(e.target.value)} 
+                  style={{ width: '100%', padding: '14px 18px', borderRadius: '16px', border: '2px solid #64748B', fontSize: '13px', fontWeight: '600', outline: 'none', boxSizing: 'border-box' }} 
+                />
               </div>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>VENDOR KONVEKSI</label>
-                <select value={vendorCMT} onChange={(e) => setVendorCMT(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', backgroundColor: '#fff', boxSizing: 'border-box' }}>
+
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.5px', color: '#000000', marginBottom: '8px' }}>
+                  VENDOR KONVEKSI
+                </label>
+                <select 
+                  value={vendorCMT} 
+                  onChange={(e) => setVendorCMT(e.target.value)} 
+                  style={{ width: '100%', padding: '14px 18px', borderRadius: '16px', border: '2px solid #64748B', backgroundColor: '#fff', fontSize: '13px', fontWeight: '700', outline: 'none', boxSizing: 'border-box' }}
+                >
                   <option value="CV Taylor Pekalongan">CV Taylor Pekalongan</option>
                   <option value="Konveksi Berkah Pekalongan">Konveksi Berkah Pekalongan</option>
                   <option value="CMT Elen Store Utama">CMT Elen Store Utama</option>
                 </select>
               </div>
-              <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>TARGET SELESAI</label>
-                <input type="date" required value={targetCMT} onChange={(e) => setTargetCMT(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} />
+
+              <div style={{ marginBottom: '28px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.5px', color: '#000000', marginBottom: '8px' }}>
+                  TARGET SELESAI
+                </label>
+                <input 
+                  type="date" 
+                  required 
+                  value={targetCMT} 
+                  onChange={(e) => setTargetCMT(e.target.value)} 
+                  style={{ width: '100%', padding: '14px 18px', borderRadius: '16px', border: '2px solid #64748B', fontSize: '13px', fontWeight: '600', outline: 'none', boxSizing: 'border-box' }} 
+                />
               </div>
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <button type="button" onClick={() => setShowModalCMT(false)} style={{ flex: 1, padding: '14px', borderRadius: '14px', border: 'none', backgroundColor: '#E2E8F0', fontWeight: '800', cursor: 'pointer' }}>Batal</button>
-                <button type="submit" style={{ flex: 1, padding: '14px', borderRadius: '14px', border: 'none', backgroundColor: '#000', color: '#fff', fontWeight: '800', cursor: 'pointer' }}>Simpan SPK</button>
+
+              <div style={{ display: 'flex', gap: '14px' }}>
+                <button 
+                  type="button" 
+                  onClick={() => setShowModalCMT(false)} 
+                  style={{ flex: 1, padding: '14px', borderRadius: '16px', border: 'none', backgroundColor: '#E2E8F0', color: '#0F172A', fontWeight: '800', fontSize: '13px', cursor: 'pointer' }}
+                >
+                  Batal
+                </button>
+                <button 
+                  type="submit" 
+                  style={{ flex: 1, padding: '14px', borderRadius: '16px', border: 'none', backgroundColor: '#000000', color: '#ffffff', fontWeight: '800', fontSize: '13px', cursor: 'pointer' }}
+                >
+                  Simpan SPK
+                </button>
               </div>
+
             </form>
           </div>
         </div>
       )}
 
-      {/* MODAL KREATIF (INPUTAN LENGKAP) */}
+      {/* ==================== 4. MODAL KONTEN KREATIF (DESAIN SCREENSHOT INCESS 100% PRESISI) ==================== */}
       {showModalKreatif && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
-          <div style={{ backgroundColor: '#fff', width: '100%', maxWidth: '450px', borderRadius: '28px', padding: '32px' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: '900', margin: '0 0 24px 0', color: '#000' }}>Buat Jadwal Konten Baru</h2>
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+          <div style={{ backgroundColor: '#ffffff', width: '100%', maxWidth: '440px', borderRadius: '28px', padding: '36px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '900', margin: '0 0 24px 0', color: '#000000' }}>
+              Buat Jadwal Konten Baru
+            </h2>
             <form onSubmit={(e) => { e.preventDefault(); alert('Jadwal Konten Disimpan!'); setShowModalKreatif(false); }}>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>JUDUL / KONSEP KONTEN</label>
-                <input type="text" required placeholder="Contoh: Fitcheck Lavie Pants B-Roll" value={judulKonten} onChange={(e) => setJudulKonten(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} />
+              
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.5px', color: '#000000', marginBottom: '8px' }}>
+                  JUDUL / KONSEP KONTEN
+                </label>
+                <input 
+                  type="text" 
+                  required 
+                  placeholder="Contoh: Fitcheck Lavie Pants B-Roll" 
+                  value={judulKonten} 
+                  onChange={(e) => setJudulKonten(e.target.value)} 
+                  style={{ width: '100%', padding: '14px 18px', borderRadius: '16px', border: '2px solid #64748B', fontSize: '13px', fontWeight: '600', outline: 'none', boxSizing: 'border-box' }} 
+                />
               </div>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>PLATFORM KONTEN</label>
-                <select value={platformKonten} onChange={(e) => setPlatformKonten(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', backgroundColor: '#fff', boxSizing: 'border-box' }}>
+
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.5px', color: '#000000', marginBottom: '8px' }}>
+                  PLATFORM
+                </label>
+                <select 
+                  value={platformKonten} 
+                  onChange={(e) => setPlatformKonten(e.target.value)} 
+                  style={{ width: '100%', padding: '14px 18px', borderRadius: '16px', border: '2px solid #64748B', backgroundColor: '#fff', fontSize: '13px', fontWeight: '700', outline: 'none', boxSizing: 'border-box' }}
+                >
                   <option value="TikTok">TikTok</option>
                   <option value="Instagram Reels">Instagram Reels</option>
                   <option value="Shopee Video">Shopee Video</option>
                 </select>
               </div>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>TALENT / HOST</label>
-                <input type="text" required value={talentKonten} onChange={(e) => setTalentKonten(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} />
+
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.5px', color: '#000000', marginBottom: '8px' }}>
+                  TALENT / HOST
+                </label>
+                <input 
+                  type="text" 
+                  required 
+                  value={talentKonten} 
+                  onChange={(e) => setTalentKonten(e.target.value)} 
+                  style={{ width: '100%', padding: '14px 18px', borderRadius: '16px', border: '2px solid #64748B', fontSize: '13px', fontWeight: '600', outline: 'none', boxSizing: 'border-box' }} 
+                />
               </div>
-              <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', marginBottom: '6px' }}>TANGGAL TAKE VIDEO</label>
-                <input type="date" required value={tanggalTake} onChange={(e) => setTanggalTake(e.target.value)} style={{ width: '100%', padding: '12px 14px', borderRadius: '14px', border: '1px solid #CBD5E1', boxSizing: 'border-box' }} />
+
+              <div style={{ marginBottom: '28px' }}>
+                <label style={{ display: 'block', fontSize: '10px', fontWeight: '900', letterSpacing: '0.5px', color: '#000000', marginBottom: '8px' }}>
+                  TANGGAL TAKE VIDEO
+                </label>
+                <input 
+                  type="date" 
+                  required 
+                  value={tanggalTake} 
+                  onChange={(e) => setTanggalTake(e.target.value)} 
+                  style={{ width: '100%', padding: '14px 18px', borderRadius: '16px', border: '2px solid #64748B', fontSize: '13px', fontWeight: '600', outline: 'none', boxSizing: 'border-box' }} 
+                />
               </div>
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <button type="button" onClick={() => setShowModalKreatif(false)} style={{ flex: 1, padding: '14px', borderRadius: '14px', border: 'none', backgroundColor: '#E2E8F0', fontWeight: '800', cursor: 'pointer' }}>Batal</button>
-                <button type="submit" style={{ flex: 1, padding: '14px', borderRadius: '14px', border: 'none', backgroundColor: '#D10056', color: '#fff', fontWeight: '800', cursor: 'pointer' }}>Simpan Jadwal</button>
+
+              <div style={{ display: 'flex', gap: '14px' }}>
+                <button 
+                  type="button" 
+                  onClick={() => setShowModalKreatif(false)} 
+                  style={{ flex: 1, padding: '14px', borderRadius: '16px', border: 'none', backgroundColor: '#E2E8F0', color: '#0F172A', fontWeight: '800', fontSize: '13px', cursor: 'pointer' }}
+                >
+                  Batal
+                </button>
+                <button 
+                  type="submit" 
+                  style={{ flex: 1, padding: '14px', borderRadius: '16px', border: 'none', backgroundColor: '#D10056', color: '#ffffff', fontWeight: '800', fontSize: '13px', cursor: 'pointer' }}
+                >
+                  Simpan Jadwal
+                </button>
               </div>
+
             </form>
           </div>
         </div>
